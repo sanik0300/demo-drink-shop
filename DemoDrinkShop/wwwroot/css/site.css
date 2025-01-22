@@ -1,0 +1,151 @@
+﻿body {
+    background-color: #F6F4F5;
+    font-family: 'SKZweig';
+    
+}
+a {
+    text-decoration: none;
+}
+input[type=text], input[type=password], select {
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    font-family: 'BreadleySans';
+    color: #64829B;
+    font-size: 18pt;
+    font-weight: 600;
+}
+input[type=submit], input[type=button], button[type=submit], select, textarea, a.checkout, a.loginbutton {
+    
+    border-top-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    padding: 10px;
+}
+
+.serious-text {
+    color: #686C33;
+    font-size: 18pt;
+    font-family: 'BreadleySans';
+    font-weight: 600;
+}
+.card-shadow {
+    box-shadow: 5px 3px 10px #686C33;
+}
+.summary-title {
+    color: #64829B;
+    text-shadow: 2px 2px 2px #A0C4DC;
+    font-family: 'Kiak';
+    font-size: 18pt;
+}
+.product-desc {
+    text-align: left;
+    margin-left: 20px;
+    color: #686C33;
+    font-size: 15pt;
+    font-weight: 600;
+}
+
+.loginbutton {
+    border: none;
+    background-color: #64829B;
+    color: #F6F4F5;
+    text-shadow: 2px 2px 2px #686C33;
+    padding-right: 10px;
+    padding-left: 10px;
+    font-family: 'Kiak';
+    font-weight: 700;
+    font-size: 14pt;
+}
+.login-group > label {
+    color: #64829B;
+    text-shadow: 2px 2px 2px #A0C4DC;
+    font-weight: 700;
+    font-size: 13pt;
+    margin-right: 10px;
+}
+.login-group > input, .login-group > select, .login-group > textarea {
+    border: 3px solid #686C33;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.myformheader {
+    color: #686C33;
+    text-align: center;
+    text-shadow: 2px 2px 1px #F6F4F5;
+    font-size: 18pt;
+    box-shadow: 0 4px 1px #64829B;
+    background-color: #A0C4DC;
+}
+.myformheader > * {
+    padding-top: 10px;
+    margin-top: 15px;
+}
+
+.checkout {
+    font-family: 'Kiak';
+    font-weight: 700;
+    font-size: 13pt;
+    color: #F6F4F5;
+    text-shadow: 2px 2px 1px #686C33;
+    background-color: #C5BAA9;
+    border: 3px solid #64829B;
+}
+
+.removal-button {
+    border:none;
+    font-family: 'BreadleySans';
+    font-weight: 600;
+    font-size: 20pt;
+    background-color: #686C33;
+    color: #F6F4F5;
+    text-shadow: 2px 2px 2px #A0C4DC;
+}
+.card-container {
+    display: flex;
+    justify-content: center;
+    padding-top: 15px;
+}
+
+.form-base > *:not(:first-child) {
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.order-section {
+    background-color: #686C33;
+    font-family: 'Kiak';
+    color: #F6F4F5;
+    margin-right: 8px;
+    padding: 5px;
+}
+.card-grid {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin: 15px;
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+}
+.two-columns {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.adminthumbnail {
+    max-height: 100px;
+}
+.adminimage {
+    max-height: 300px;
+}
+
+.input-validation-error {
+    border-color: red;
+    background-color: #fee;
+}
+
+.userimage {
+    max-height: 400px;
+}

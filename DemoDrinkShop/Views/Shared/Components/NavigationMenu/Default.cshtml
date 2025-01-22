@@ -1,0 +1,25 @@
+﻿@{
+    string homeLinkClass = ViewBag.SelectedCategory == null ? "active-category" : "";
+}
+
+<a class=@homeLinkClass
+    asp-action="List"
+    asp-controller="Product"
+    asp-route-category=""
+    asp-route-page="1">
+    Home
+</a>
+
+@foreach (byte? category in Model) 
+{
+    string categoryName = category==null? null: Product.CategoryNames[Convert.ToInt32(category)];
+
+    string categoryClass = category == ViewBag.SelectedCategory ? "active-category" : "";
+    <a class=@categoryClass
+        asp-action="List"
+        asp-controller="Product"
+        asp-route-category=@categoryName
+        asp-route-page="1">
+        @categoryName
+    </a>
+}

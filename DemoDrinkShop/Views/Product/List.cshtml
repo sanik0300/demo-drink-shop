@@ -1,0 +1,19 @@
+﻿@using System.Globalization;
+@using DemoDrinkShop.Models.ViewModels;
+@model ProductsListViewModel
+<div class="two-columns">
+    @{
+        foreach(Product product in Model.Products)
+        {
+            @Html.Partial("ProductSummary", product)
+        }
+    }
+</div>
+<div page-model="@Model.PagingInfo" page-action="List" 
+     page-classes-enabled="true"
+     page-class="btn" 
+     page-class-normal="btn-secondary"
+     page-class-selected="btn-primary"
+     page-url-category="@(Model.CurrentCategory == null? null : Product.CategoryNames[Convert.ToInt32(Model.CurrentCategory)])"
+     class="page-numbers-container">
+</div>

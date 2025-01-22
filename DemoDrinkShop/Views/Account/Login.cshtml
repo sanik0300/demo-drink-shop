@@ -1,0 +1,24 @@
+﻿@using DemoDrinkShop.Models.ViewModels
+@model LoginModel
+@{
+    ViewBag.Title = "Log In";
+    Layout = "_AdminLayout";
+}
+
+<div>
+<div class="text-danger" asp-validation-summary="All"></div>
+<form asp-action="Login" asp-controller="Account" method="post">
+    <input type="hidden" asp-for="ReturnUrl" />
+    <div class="login-group">
+        <label asp-for="Name"></label>
+        <div><span asp-validation-for="Name" class="text-danger"></span></div>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="login-group">
+        <label asp-for="Password"></label>
+        <div><span asp-validation-for="Password" class="text-danger"></span></div>
+        <input asp-for="Password"/>
+    </div>
+    <button type="submit" class="loginbutton">Log In</button>
+</form>
+</div>

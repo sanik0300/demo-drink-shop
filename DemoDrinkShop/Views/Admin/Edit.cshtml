@@ -1,0 +1,84 @@
+﻿@using DemoDrinkShop.Models
+@model Product
+@{
+    ViewBag.Title = "Edit Product";
+    Layout = "_AdminLayout";
+}
+
+<form asp-action="Edit" method="post" id="editingForm">
+    <div class="card-grid">
+    <div>
+    <input type="hidden" asp-for="ProductID" />
+    <div class="login-group">
+        <label asp-for="Name"></label>
+        <div><span asp-validation-for="Name" class="text-danger"></span></div>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="login-group">
+        <label asp-for="Description"></label>
+        <div><span asp-validation-for="Description" class="text-danger"></span></div>
+        <textarea asp-for="Description" class="form-control"></textarea>
+    </div>
+    <div class="login-group">
+        <label asp-for="Category"></label>
+        <div><span asp-validation-for="Category" class="text-danger"></span></div>
+        <select asp-for="Category" class="form-control">
+            @for(byte i = 0; i<Product.CategoryNames.Count; i++)
+            {
+                if(Model.Category.HasValue && i==(byte)Model.Category)
+                {
+                    <option value=@i selected>@Product.CategoryNames[i]</option>
+                }
+                else {
+                    <option value=@i>@Product.CategoryNames[i]</option>
+                }
+            }    
+        </select>
+    </div>
+    <div class="login-group">
+        <label asp-for="Price"></label>
+        <div><span asp-validation-for="Price" class="text-danger"></span></div>
+        <input asp-for="Price" class="form-control" />
+    </div>
+    </div>
+
+    <div>
+        @{  string msgAboutImg;
+            string imageClass = "adminimage";
+            if (Model.ImageURL == null)
+            {
+                msgAboutImg = "Product has no image";
+            }
+            else if (Model.ImageFileExists())
+            {
+                msgAboutImg = "Image";
+                imageClass += " card-shadow";
+            }
+            else {
+                msgAboutImg = "Image (not found!)";
+            }
+         }
+        <div >
+            <p class="summary-title">@msgAboutImg</p>
+            <input type="file" accept="image/*" name="fileData" id="adminImageInput" 
+                   value="Load" onchange="onImageAdded()" />
+            @if(Model.ImageURL == null)
+            {
+                <input type="button" id="removeImgBtn" value="Remove" 
+                       class="removal-button" style="font-size: 14pt" onclick="onImageCancelOrDelete(true)" disabled />
+            }
+            else {
+                <input type="button" id="removeImgBtn" value="Remove" 
+                       class="removal-button" style="font-size: 14pt" onclick="onImageCancelOrDelete(true)" />
+            }
+            <input id="imgResetBtn" class="checkout" type="button" value="Reset" onclick="onImageCancelOrDelete(false)" disabled />
+        </div>
+        <img src=@Model.GetDisplayImageSrc() class="@imageClass" id="adminImgPreview"/>
+    </div>
+    </div>
+
+    <div style="text-align: center; margin-bottom: 15px">
+        <button class="loginbutton" type="submit">Save</button>
+        <a asp-action="Index" class="checkout">Cancel</a>
+    </div>
+</form>

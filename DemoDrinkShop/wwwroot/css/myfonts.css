@@ -1,0 +1,23 @@
+﻿@font-face {
+    font-weight: 400;
+    font-family: "Kiak";
+    src: url("Kiak-Regular.otf");
+}
+
+@font-face {
+    font-weight: 700;
+    font-family: "Kiak";
+    src: url("Kiak-Bold.otf");
+}
+
+@font-face {
+    font-weight: 400;
+    font-family: "BreadleySans";
+    src: url("BreadleySansRegular.ttf");
+}
+
+@font-face {
+    font-weight: 400;
+    font-family: "SKZweig";
+    src: url("SK Zweig Rounded Light.ttf");
+}

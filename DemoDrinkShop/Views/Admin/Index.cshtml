@@ -1,0 +1,44 @@
+﻿@using DemoDrinkShop.Models
+@model IEnumerable<Product>
+@{
+	ViewBag.Title = "All Products";
+	Layout = "_AdminLayout";
+}
+
+<table class="goods-table">
+	<tr>
+		<th class="text-right">ID</th>
+		<th>Name</th>
+		<th class="text-right">Price</th>
+		<th>Image</th>
+		<th class="text-center">Actions</th>
+	</tr>
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td class="product-desc" style="text-align: center">@item.ProductID</td>
+			<td class="serious-text">@item.Name</td>
+            <td class="serious-text">@item.Price.ToString("c")</td>
+            <td>
+                <img src=@item.GetDisplayImageSrc() class="adminthumbnail card-shadow"/>
+            </td>
+			<td class="text-center">
+				<form asp-action="Delete" method="post">
+					<a asp-action="Edit" class="loginbutton"
+					   asp-route-productId="@item.ProductID">
+						Edit
+					</a>
+					<input type="hidden" name="ProductID" value="@item.ProductID" />
+					<button type="submit" class="removal-button">
+						Delete
+					</button>
+				</form>
+			</td>
+			
+		</tr>
+	}
+</table>
+
+<div style="height: 50px;">
+	<a asp-action="Create" class="checkout" style="margin: 80px">Add Product</a>
+</div>

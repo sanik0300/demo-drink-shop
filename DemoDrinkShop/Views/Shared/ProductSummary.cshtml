@@ -1,0 +1,29 @@
+﻿@using DemoDrinkShop.Models
+@model Product
+
+@{
+	bool hasImage = Model.ImageURL != null && Model.ImageFileExists();
+	string klass = hasImage ? "card-shadow card-grid" : "card-shadow";
+}
+
+<div class="@klass">
+	<div>
+		<p class="summary-title"> @Model.Name </p>
+
+		<h3 class="price-display">@Model.Price.ToString("c")</h3>
+
+		<form id="@Model.ProductID" asp-action="AddToCart" asp-controller="Cart" method="post">
+			<input type="hidden" asp-for="ProductID" />
+			<input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+			<h4 class="product-desc">@Model.Description</h4>
+			<button class="checkout"  type="submit"> Add To Cart</button>
+		</form>
+	</div>
+
+	@if (hasImage)
+	{
+		<div>
+			<img id="crtphoto" class="userimage" src=@Model.GetDisplayImageSrc() />
+		</div>
+	}
+</div>

@@ -1,0 +1,38 @@
+﻿
+
+.login-base {
+    padding-top: 15px;
+}
+
+.login-base > :not(:first-child) {
+    padding: 15px;
+    
+}
+
+    .login-base > :first-child > h4 {
+        margin-bottom: 0;
+        padding-top: 0;
+    }
+    .login-base > div:nth-child(1) {
+        margin-top: 0;
+        padding-top: 15px
+    }
+    .login-base > div:nth-child(2) > * > h4 {
+        margin: 0;
+        padding: 0;
+    }
+    .login-base > * > form {
+        text-align: center;
+    }
+
+        .login-base > * > form > * {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+    .login-base > * > form > :last-child {
+        align-content: center;
+    }
+
+
+

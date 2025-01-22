@@ -1,0 +1,59 @@
+﻿@using DemoDrinkShop.Models.ViewModels
+@model CartIndexViewModel
+
+<div class="card-container">
+<div class="card-shadow">
+<h2 id="mycart-h2">Your cart</h2>
+<table class="cart-table">
+	<thead>
+		<tr class="summary-title">
+			<th>Quantity</th>
+			<th>Item</th>
+			<th class="text-right">Price</th>
+			<th class="text-right">Subtotal</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var line in Model.Cart.Lines)
+		{
+			<tr class="product-desc">
+				<td class="quantity-column">@line.Quantity</td>
+				<td>@line.Product.Name</td>
+				<td>@line.Product.Price.ToString("c")</td>
+				<td>
+					@((line.Quantity * line.Product.Price).ToString("c"))
+				</td>
+
+				<td>
+					<form asp-action="RemoveFromCart" method="post">
+						<input type="hidden" name="ProductID"
+							   value="@line.Product.ProductID" />
+						<input type="hidden" name="returnUrl"
+							   value="@Model.ReturnUrl" />
+						<button type="submit" class="removal-button">
+							Remove
+						</button>
+					</form>
+				</td>
+
+			</tr>
+		}
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="3" class="summary-title">Total:</td>
+			<td class="price-display">
+				@Model.Cart.ComputeTotalValue().ToString("c")
+			</td>
+		</tr>
+	</tfoot>
+</table>
+<div class="cart-buttons-container">
+	<a class="checkout" href="@Model.ReturnUrl">Continue shopping</a>
+
+    <a class="loginbutton" asp-action="Checkout" asp-controller="Order">
+		<h3>Checkout</h3>
+	</a>
+</div>
+</div>
+</div>

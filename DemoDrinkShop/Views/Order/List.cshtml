@@ -1,0 +1,42 @@
+﻿@using DemoDrinkShop.Models
+@model IEnumerable<Order>
+@{
+	ViewBag.Title = "Orders";
+	Layout = "_AdminLayout";
+}
+@if (Model.Count() > 0)
+{
+	<table class="goods-table">
+		<tr><th>Name</th><th>Zip</th><th colspan="2">Details</th><th></th></tr>
+		@foreach (Order o in Model)
+		{
+			<tr>
+				<td class="serious-text">@o.Name</td>
+				<td class="serious-text">@o.Zip</td>
+				<td class="summary-title">Product</td>
+				<td class="summary-title">Quantity</td>
+				<td>
+					<form asp-action="MarkShipped" method="post">
+						<input type="hidden" name="orderId" value="@o.OrderID" />
+						<button type="submit" class="removal-button">
+							Ship
+						</button>
+					</form>
+				</td>
+			</tr>
+			@foreach (Cart.CartLine line in o.Lines)
+			{
+				<tr>
+					<td colspan="2"></td>
+					<td class="product-desc">@line.Product.Name</td>
+					<td class="product-desc">@line.Quantity</td>
+					<td></td>
+				</tr>
+			}
+		}
+	</table>
+}
+else {
+	<div class="summary-title">No Unshipped Orders</div>
+}
+

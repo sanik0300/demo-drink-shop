@@ -1,0 +1,59 @@
+﻿@using DemoDrinkShop.Models
+@model Order
+
+<div class="card-container">
+	<div class="card-shadow form-base">
+        <div class="myformheader">
+            <h3>Check out now</h3>
+		</div>
+		
+		<p class="product-desc">Please enter your details, and we'll ship your goods right away!</p>
+		<div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-action="Checkout" method="post">
+	<div class="two-columns">
+	<div>
+		<h3 class="order-section">Ship to</h3>
+		<div class="login-group">
+			<label>Name:</label><input asp-for="Name" class="form-control" />
+		</div>
+		<h3 class="order-section">Address</h3>
+			<div class="login-group">
+				<label>Line 1:</label><input asp-for="Line1" class="form-control" />
+			</div>
+			<div class="login-group">
+				<label>Line 2:</label><input asp-for="Line2" class="form-control" />
+			</div>
+			<div class="login-group">
+				<label>Line 3:</label><input asp-for="Line3" class="form-control" />
+			</div>
+		</div>
+
+		<div>
+			<div class="login-group" style="text-align: right">
+				<label>City:</label><input asp-for="City" class="form-control" />
+			</div>
+			<div class="login-group" style="text-align: right">
+				<label>State:</label><input asp-for="State" class="form-control" />
+			</div>
+			<div class="login-group" style="text-align: right">
+				<label>Zip:</label><input asp-for="Zip" class="form-control" />
+			</div>
+			<div class="login-group" style="text-align: right">
+				<label>Country:</label><input asp-for="Country" class="form-control" />
+			</div>
+			<h3 class="order-section">Options</h3>
+			<div class="checkbox">
+				<label class="product-desc">
+					<input asp-for="GiftWrap" /> Gift wrap these items
+				</label>
+			</div>
+		</div>
+	</div>
+
+	<div style="text-align: center; margin: 15px;">
+		<input class="checkout" type="submit" value="Complete Order" />
+	</div>
+</form>
+</div>
+</div>

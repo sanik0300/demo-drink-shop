@@ -1,0 +1,19 @@
+﻿
+    .card-grid > :nth-child(2n+1) {
+        text-align: center;
+    }
+
+    .card-grid > :nth-child(2n) {
+        text-align: center;
+    }
+
+.price-display {
+    color: #686C33;
+    font-family: 'BreadleySans';
+    font-size: 24pt;
+    font-weight: 600;
+    background-color: #A0C4DC;
+    text-shadow: 1px 3px 1px #F6F4F5;
+}
+
+
