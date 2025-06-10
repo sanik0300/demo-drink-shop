@@ -1,29 +1,29 @@
 ﻿@using DemoDrinkShop.Models
-@model Product
+@model ProductWrapperViewModel
 
 @{
-	bool hasImage = Model.ImageURL != null && Model.ImageFileExists();
-	string klass = hasImage ? "card-shadow card-grid" : "card-shadow";
+	//bool hasImage = Model.ImageURL != null && Model.ImageFileExists();
+	string klass = Model.ImageExists.GetValueOrDefault() ? "card-shadow card-grid" : "card-shadow";
 }
 
 <div class="@klass">
 	<div>
-		<p class="summary-title"> @Model.Name </p>
+		<p class="summary-title"> @Model.Product.Name </p>
 
-		<h3 class="price-display">@Model.Price.ToString("c")</h3>
+		<h3 class="price-display">@Model.Product.Price.ToString("c")</h3>
 
-		<form id="@Model.ProductID" asp-action="AddToCart" asp-controller="Cart" method="post">
-			<input type="hidden" asp-for="ProductID" />
+		<form id="@Model.Product.ProductID" asp-action="AddToCart" asp-controller="Cart" method="post">
+			<input type="hidden" asp-for="Product.ProductID" />
 			<input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-			<h4 class="product-desc">@Model.Description</h4>
+			<h4 class="product-desc">@Model.Product.Description</h4>
 			<button class="checkout"  type="submit"> Add To Cart</button>
 		</form>
 	</div>
 
-	@if (hasImage)
+	@if (Model.ImageExists.GetValueOrDefault())
 	{
 		<div>
-			<img id="crtphoto" class="userimage" src=@Model.GetDisplayImageSrc() />
+			<img id="crtphoto" class="userimage" src=@Model.ImageSrc />
 		</div>
 	}
 </div>

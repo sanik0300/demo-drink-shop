@@ -1,31 +1,46 @@
-﻿function onImageAdded()
-{
-    var formData = new FormData($('#editingForm')[0]);
-    if (formData == null) { return; }
+﻿function onImageAdded() {
+    let fileInput = document.getElementById("adminImageInput");
+    var fileGiven = fileInput.files[0];
 
     $.ajax({
         url: '/Admin/ProposeImage',
         type: 'POST',
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function ()
-        {
+        data: {
+            contentTypeString: fileGiven.type
+        },
+        success: function () {
             var fr = new FileReader();
 
-            fr.onload = function (e)
-            {
+            fr.onload = function (e) {
                 document.getElementById("adminImgPreview").src = e.target.result;
 
                 document.getElementById("removeImgBtn").disabled = false;
                 document.getElementById("imgResetBtn").disabled = false;
             }
-            var fileInput = document.getElementById("adminImageInput");
-            fr.readAsDataURL(fileInput.files[0]);
-        },
-        error: function () {
+            fr.readAsDataURL(fileGiven);
+        }
+    });
+ }
 
-            return;
+function onProductEdit() {
+
+    var formData = new FormData($('#editingForm')[0]);
+    if (formData == null) { return; }
+
+    let dataUrl = document.getElementById("adminImgPreview").src;
+    formData.append("dataUrl", dataUrl);
+
+    $.ajax({
+        url: '/Admin/Edit',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+
+            document.open();
+            document.write(response);
+            document.close();
         }
     });
 }
