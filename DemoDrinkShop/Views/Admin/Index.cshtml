@@ -1,5 +1,5 @@
 ﻿@using DemoDrinkShop.Models
-@model IEnumerable<Product>
+@model IEnumerable<ProductWrapperViewModel>
 @{
 	ViewBag.Title = "All Products";
 	Layout = "_AdminLayout";
@@ -16,19 +16,19 @@
 	@foreach (var item in Model)
 	{
 		<tr>
-			<td class="product-desc" style="text-align: center">@item.ProductID</td>
-			<td class="serious-text">@item.Name</td>
-            <td class="serious-text">@item.Price.ToString("c")</td>
+			<td class="product-desc" style="text-align: center">@item.Product.ProductID</td>
+			<td class="serious-text">@item.Product.Name</td>
+            <td class="serious-text">@item.Product.Price.ToString("c")</td>
             <td>
-                <img src=@item.GetDisplayImageSrc() class="adminthumbnail card-shadow"/>
+                <img src=@item.ImageSrc class="adminthumbnail card-shadow"/>
             </td>
 			<td class="text-center">
 				<form asp-action="Delete" method="post">
 					<a asp-action="Edit" class="loginbutton"
-					   asp-route-productId="@item.ProductID">
+					   asp-route-productId="@item.Product.ProductID">
 						Edit
 					</a>
-					<input type="hidden" name="ProductID" value="@item.ProductID" />
+					<input type="hidden" name="ProductID" value="@item.Product.ProductID" />
 					<button type="submit" class="removal-button">
 						Delete
 					</button>

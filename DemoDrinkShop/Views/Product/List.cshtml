@@ -3,9 +3,9 @@
 @model ProductsListViewModel
 <div class="two-columns">
     @{
-        foreach(Product product in Model.Products)
+        foreach(ProductWrapperViewModel wrapper in Model.Products)
         {
-            @Html.Partial("ProductSummary", product)
+            @Html.Partial("ProductSummary", wrapper)
         }
     }
 </div>

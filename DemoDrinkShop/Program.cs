@@ -19,10 +19,17 @@ namespace DemoDrinkShop
             ConfigurationManager configuration = builder.Configuration;
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(configuration["Data:DemoDrinkShopProducts:ConnectionStrings"]);
+                options.UseSqlServer(configuration["Data:DemoDrinkShopProducts:ConnectionString"]);
             });
             builder.Services.AddTransient<IProductRepository, EFProductRepository>();
+
 			builder.Services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+
+			string? OAuthPath = configuration["Firebase:OauthKeyPath"],
+				    bucketName = configuration["Firebase:BucketName"];
+			IImageStorageService serviceForImages = new FirebaseImagesService(bucketName, OAuthPath);
+			builder.Services.AddSingleton(serviceForImages);
+
 			builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 			builder.Services.AddTransient<IOrderRepository, EFOrderRepository>();
 			builder.Services.AddDbContext<AppIdentityDbContext>(options =>
@@ -95,6 +102,10 @@ namespace DemoDrinkShop
 				routes.MapRoute(name: null, template: "{controller}/{action}/{id?}");
 			});
 
+			app.Lifetime.ApplicationStopping.Register(() =>
+			{
+				(serviceForImages as FirebaseImagesService)?.Dispose();
+			});
 
 			SeedData.EnsurePopulated(app);
 			IdentitySeedData.EnsurePopulated(app);
