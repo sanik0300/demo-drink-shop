@@ -1,0 +1,1202 @@
+[
+  {
+    "unicode": "U+1F1E6 U+1F1FC",
+    "dialCode": 297,
+    "alpha3": "ABW"
+  },
+  {
+    "unicode": "U+1F1E6 U+1F1EB",
+    "dialCode": 93,
+    "alpha3": "AFG"
+  },
+  {
+    "unicode": "U+1F1E6 U+1F1F4",
+    "dialCode": 244,
+    "alpha3": "AGO"
+  },
+  {
+    "unicode": "U+1F1E6 U+1F1EE",
+    "dialCode": 1264,
+    "alpha3": "AIA"
+  },
+  {
+    "unicode": "U+1F1E6 U+1F1F1",
+    "dialCode": 355,
+    "alpha3": "ALB"
+  },
+  {
+    "unicode": "U+1F1E6 U+1F1E9",
+    "dialCode": 376,
+    "alpha3": "AND"
+  },
+  {
+    "unicode": "U+1F1E6 U+1F1EA",
+    "dialCode": 971,
+    "alpha3": "ARE"
+  },
+  {
+    "unicode": "U+1F1E6 U+1F1F7",
+    "dialCode": 54,
+    "alpha3": "ARG"
+  },
+  {
+    "unicode": "U+1F1E6 U+1F1F2",
+    "dialCode": 374,
+    "alpha3": "ARM"
+  },
+  {
+    "unicode": "U+1F1E6 U+1F1F8",
+    "dialCode": 1684,
+    "alpha3": "ASM"
+  },
+  {
+    "unicode": "U+1F1E6 U+1F1EC",
+    "dialCode": 1268,
+    "alpha3": "ATG"
+  },
+  {
+    "unicode": "U+1F1E6 U+1F1FA",
+    "dialCode": 61,
+    "alpha3": "AUS"
+  },
+  {
+    "unicode": "U+1F1E6 U+1F1F9",
+    "dialCode": 43,
+    "alpha3": "AUT"
+  },
+  {
+    "unicode": "U+1F1E6 U+1F1FF",
+    "dialCode": 994,
+    "alpha3": "AZE"
+  },
+  {
+    "unicode": "U+1F1E7 U+1F1EE",
+    "dialCode": 257,
+    "alpha3": "BDI"
+  },
+  {
+    "unicode": "U+1F1E7 U+1F1EA",
+    "dialCode": 32,
+    "alpha3": "BEL"
+  },
+  {
+    "unicode": "U+1F1E7 U+1F1EF",
+    "dialCode": 229,
+    "alpha3": "BEN"
+  },
+  {
+    "unicode": "U+1F1E7 U+1F1EB",
+    "dialCode": 226,
+    "alpha3": "BFA"
+  },
+  {
+    "unicode": "U+1F1E7 U+1F1E9",
+    "dialCode": 880,
+    "alpha3": "BGD"
+  },
+  {
+    "unicode": "U+1F1E7 U+1F1EC",
+    "dialCode": 359,
+    "alpha3": "BGR"
+  },
+  {
+    "unicode": "U+1F1E7 U+1F1ED",
+    "dialCode": 973,
+    "alpha3": "BHR"
+  },
+  {
+    "unicode": "U+1F1E7 U+1F1F8",
+    "dialCode": 1242,
+    "alpha3": "BHS"
+  },
+  {
+    "unicode": "U+1F1E7 U+1F1E6",
+    "dialCode": 387,
+    "alpha3": "BIH"
+  },
+  {
+    "unicode": "U+1F1E7 U+1F1F1",
+    "dialCode": 590,
+    "alpha3": "BLM"
+  },
+  {
+    "unicode": "U+1F1E7 U+1F1FE",
+    "dialCode": 375,
+    "alpha3": "BLR"
+  },
+  {
+    "unicode": "U+1F1E7 U+1F1FF",
+    "dialCode": 501,
+    "alpha3": "BLZ"
+  },
+  {
+    "unicode": "U+1F1E7 U+1F1F2",
+    "dialCode": 1441,
+    "alpha3": "BMU"
+  },
+  {
+    "unicode": "U+1F1E7 U+1F1F4",
+    "dialCode": 591,
+    "alpha3": "BOL"
+  },
+  {
+    "unicode": "U+1F1E7 U+1F1F7",
+    "dialCode": 55,
+    "alpha3": "BRA"
+  },
+  {
+    "unicode": "U+1F1E7 U+1F1E7",
+    "dialCode": 1246,
+    "alpha3": "BRB"
+  },
+  {
+    "unicode": "U+1F1E7 U+1F1F3",
+    "dialCode": 673,
+    "alpha3": "BRN"
+  },
+  {
+    "unicode": "U+1F1E7 U+1F1F9",
+    "dialCode": 975,
+    "alpha3": "BTN"
+  },
+  {
+    "unicode": "U+1F1E7 U+1F1FC",
+    "dialCode": 267,
+    "alpha3": "BWA"
+  },
+  {
+    "unicode": "U+1F1E8 U+1F1EB",
+    "dialCode": 236,
+    "alpha3": "CAF"
+  },
+  {
+    "unicode": "U+1F1E8 U+1F1E6",
+    "dialCode": 1,
+    "alpha3": "CAN"
+  },
+  {
+    "unicode": "U+1F1E8 U+1F1E8",
+    "dialCode": 61,
+    "alpha3": "CCK"
+  },
+  {
+    "unicode": "U+1F1E8 U+1F1ED",
+    "dialCode": 41,
+    "alpha3": "CHE"
+  },
+  {
+    "unicode": "U+1F1E8 U+1F1F1",
+    "dialCode": 56,
+    "alpha3": "CHL"
+  },
+  {
+    "unicode": "U+1F1E8 U+1F1F3",
+    "dialCode": 86,
+    "alpha3": "CHN"
+  },
+  {
+    "unicode": "U+1F1E8 U+1F1EE",
+    "dialCode": 225,
+    "alpha3": "CIV"
+  },
+  {
+    "unicode": "U+1F1E8 U+1F1F2",
+    "dialCode": 237,
+    "alpha3": "CMR"
+  },
+  {
+    "unicode": "U+1F1E8 U+1F1E9",
+    "dialCode": 243,
+    "alpha3": "COD"
+  },
+  {
+    "unicode": "U+1F1E8 U+1F1EC",
+    "dialCode": 242,
+    "alpha3": "COG"
+  },
+  {
+    "unicode": "U+1F1E8 U+1F1F0",
+    "dialCode": 682,
+    "alpha3": "COK"
+  },
+  {
+    "unicode": "U+1F1E8 U+1F1F4",
+    "dialCode": 57,
+    "alpha3": "COL"
+  },
+  {
+    "unicode": "U+1F1F0 U+1F1F2",
+    "dialCode": 269,
+    "alpha3": "COM"
+  },
+  {
+    "unicode": "U+1F1E8 U+1F1FB",
+    "dialCode": 238,
+    "alpha3": "CPV"
+  },
+  {
+    "unicode": "U+1F1E8 U+1F1F7",
+    "dialCode": 506,
+    "alpha3": "CRI"
+  },
+  {
+    "unicode": "U+1F1E8 U+1F1FA",
+    "dialCode": 53,
+    "alpha3": "CUB"
+  },
+  {
+    "unicode": "U+1F1E8 U+1F1FD",
+    "dialCode": 61,
+    "alpha3": "CXR"
+  },
+  {
+    "unicode": "U+1F1F0 U+1F1FE",
+    "dialCode": 345,
+    "alpha3": "CYM"
+  },
+  {
+    "unicode": "U+1F1E8 U+1F1FE",
+    "dialCode": 537,
+    "alpha3": "CYP"
+  },
+  {
+    "unicode": "U+1F1E8 U+1F1FF",
+    "dialCode": 420,
+    "alpha3": "CZE"
+  },
+  {
+    "unicode": "U+1F1E9 U+1F1EA",
+    "dialCode": 49,
+    "alpha3": "DEU"
+  },
+  {
+    "unicode": "U+1F1E9 U+1F1EF",
+    "dialCode": 253,
+    "alpha3": "DJI"
+  },
+  {
+    "unicode": "U+1F1E9 U+1F1F2",
+    "dialCode": 1767,
+    "alpha3": "DMA"
+  },
+  {
+    "unicode": "U+1F1E9 U+1F1F0",
+    "dialCode": 45,
+    "alpha3": "DNK"
+  },
+  {
+    "unicode": "U+1F1E9 U+1F1F4",
+    "dialCode": 1849,
+    "alpha3": "DOM"
+  },
+  {
+    "unicode": "U+1F1E9 U+1F1FF",
+    "dialCode": 213,
+    "alpha3": "DZA"
+  },
+  {
+    "unicode": "U+1F1EA U+1F1E8",
+    "dialCode": 593,
+    "alpha3": "ECU"
+  },
+  {
+    "unicode": "U+1F1EA U+1F1EC",
+    "dialCode": 20,
+    "alpha3": "EGY"
+  },
+  {
+    "unicode": "U+1F1EA U+1F1F7",
+    "dialCode": 291,
+    "alpha3": "ERI"
+  },
+  {
+    "unicode": "U+1F1EA U+1F1F8",
+    "dialCode": 34,
+    "alpha3": "ESP"
+  },
+  {
+    "unicode": "U+1F1EA U+1F1EA",
+    "dialCode": 372,
+    "alpha3": "EST"
+  },
+  {
+    "unicode": "U+1F1EA U+1F1F9",
+    "dialCode": 251,
+    "alpha3": "ETH"
+  },
+  {
+    "unicode": "U+1F1EB U+1F1EE",
+    "dialCode": 358,
+    "alpha3": "FIN"
+  },
+  {
+    "unicode": "U+1F1EB U+1F1EF",
+    "dialCode": 679,
+    "alpha3": "FJI"
+  },
+  {
+    "unicode": "U+1F1EB U+1F1F0",
+    "dialCode": 500,
+    "alpha3": "FLK"
+  },
+  {
+    "unicode": "U+1F1EB U+1F1F7",
+    "dialCode": 33,
+    "alpha3": "FRA"
+  },
+  {
+    "unicode": "U+1F1EB U+1F1F4",
+    "dialCode": 298,
+    "alpha3": "FRO"
+  },
+  {
+    "unicode": "U+1F1EB U+1F1F2",
+    "dialCode": 691,
+    "alpha3": "FSM"
+  },
+  {
+    "unicode": "U+1F1EC U+1F1E6",
+    "dialCode": 241,
+    "alpha3": "GAB"
+  },
+  {
+    "unicode": "U+1F1EC U+1F1E7",
+    "dialCode": 44,
+    "alpha3": "GBR"
+  },
+  {
+    "unicode": "U+1F1EC U+1F1EA",
+    "dialCode": 995,
+    "alpha3": "GEO"
+  },
+  {
+    "unicode": "U+1F1EC U+1F1EC",
+    "dialCode": 44,
+    "alpha3": "GGY"
+  },
+  {
+    "unicode": "U+1F1EC U+1F1ED",
+    "dialCode": 233,
+    "alpha3": "GHA"
+  },
+  {
+    "unicode": "U+1F1EC U+1F1EE",
+    "dialCode": 350,
+    "alpha3": "GIB"
+  },
+  {
+    "unicode": "U+1F1EC U+1F1F3",
+    "dialCode": 224,
+    "alpha3": "GIN"
+  },
+  {
+    "unicode": "U+1F1EC U+1F1F5",
+    "dialCode": 590,
+    "alpha3": "GLP"
+  },
+  {
+    "unicode": "U+1F1EC U+1F1F2",
+    "dialCode": 220,
+    "alpha3": "GMB"
+  },
+  {
+    "unicode": "U+1F1EC U+1F1FC",
+    "dialCode": 245,
+    "alpha3": "GNB"
+  },
+  {
+    "unicode": "U+1F1EC U+1F1F6",
+    "dialCode": 240,
+    "alpha3": "GNQ"
+  },
+  {
+    "unicode": "U+1F1EC U+1F1F7",
+    "dialCode": 30,
+    "alpha3": "GRC"
+  },
+  {
+    "unicode": "U+1F1EC U+1F1E9",
+    "dialCode": 1473,
+    "alpha3": "GRD"
+  },
+  {
+    "unicode": "U+1F1EC U+1F1F1",
+    "dialCode": 299,
+    "alpha3": "GRL"
+  },
+  {
+    "unicode": "U+1F1EC U+1F1F9",
+    "dialCode": 502,
+    "alpha3": "GTM"
+  },
+  {
+    "unicode": "U+1F1EC U+1F1EB",
+    "dialCode": 594,
+    "alpha3": "GUF"
+  },
+  {
+    "unicode": "U+1F1EC U+1F1FA",
+    "dialCode": 1671,
+    "alpha3": "GUM"
+  },
+  {
+    "unicode": "U+1F1EC U+1F1FE",
+    "dialCode": 595,
+    "alpha3": "GUY"
+  },
+  {
+    "unicode": "U+1F1ED U+1F1F0",
+    "dialCode": 852,
+    "alpha3": "HKG"
+  },
+  {
+    "unicode": "U+1F1ED U+1F1F3",
+    "dialCode": 504,
+    "alpha3": "HND"
+  },
+  {
+    "unicode": "U+1F1ED U+1F1F7",
+    "dialCode": 385,
+    "alpha3": "HRV"
+  },
+  {
+    "unicode": "U+1F1ED U+1F1F9",
+    "dialCode": 509,
+    "alpha3": "HTI"
+  },
+  {
+    "unicode": "U+1F1ED U+1F1FA",
+    "dialCode": 36,
+    "alpha3": "HUN"
+  },
+  {
+    "unicode": "U+1F1EE U+1F1E9",
+    "dialCode": 62,
+    "alpha3": "IDN"
+  },
+  {
+    "unicode": "U+1F1EE U+1F1F2",
+    "dialCode": 44,
+    "alpha3": "IMN"
+  },
+  {
+    "unicode": "U+1F1EE U+1F1F3",
+    "dialCode": 91,
+    "alpha3": "IND"
+  },
+  {
+    "unicode": "U+1F1EE U+1F1F4",
+    "dialCode": 246,
+    "alpha3": "IOT"
+  },
+  {
+    "unicode": "U+1F1EE U+1F1EA",
+    "dialCode": 353,
+    "alpha3": "IRL"
+  },
+  {
+    "unicode": "U+1F1EE U+1F1F7",
+    "dialCode": 98,
+    "alpha3": "IRN"
+  },
+  {
+    "unicode": "U+1F1EE U+1F1F6",
+    "dialCode": 964,
+    "alpha3": "IRQ"
+  },
+  {
+    "unicode": "U+1F1EE U+1F1F8",
+    "dialCode": 354,
+    "alpha3": "ISL"
+  },
+  {
+    "unicode": "U+1F1EE U+1F1F1",
+    "dialCode": 972,
+    "alpha3": "ISR"
+  },
+  {
+    "unicode": "U+1F1EE U+1F1F9",
+    "dialCode": 39,
+    "alpha3": "ITA"
+  },
+  {
+    "unicode": "U+1F1EF U+1F1F2",
+    "dialCode": 1876,
+    "alpha3": "JAM"
+  },
+  {
+    "unicode": "U+1F1EF U+1F1EA",
+    "dialCode": 44,
+    "alpha3": "JEY"
+  },
+  {
+    "unicode": "U+1F1EF U+1F1F4",
+    "dialCode": 962,
+    "alpha3": "JOR"
+  },
+  {
+    "unicode": "U+1F1EF U+1F1F5",
+    "dialCode": 81,
+    "alpha3": "JPN"
+  },
+  {
+    "unicode": "U+1F1F0 U+1F1FF",
+    "dialCode": 77,
+    "alpha3": "KAZ"
+  },
+  {
+    "unicode": "U+1F1F0 U+1F1EA",
+    "dialCode": 254,
+    "alpha3": "KEN"
+  },
+  {
+    "unicode": "U+1F1F0 U+1F1EC",
+    "dialCode": 996,
+    "alpha3": "KGZ"
+  },
+  {
+    "unicode": "U+1F1F0 U+1F1ED",
+    "dialCode": 855,
+    "alpha3": "KHM"
+  },
+  {
+    "unicode": "U+1F1F0 U+1F1EE",
+    "dialCode": 686,
+    "alpha3": "KIR"
+  },
+  {
+    "unicode": "U+1F1F0 U+1F1F3",
+    "dialCode": 1869,
+    "alpha3": "KNA"
+  },
+  {
+    "unicode": "U+1F1F0 U+1F1F7",
+    "dialCode": 82,
+    "alpha3": "KOR"
+  },
+  {
+    "unicode": "U+1F1F0 U+1F1FC",
+    "dialCode": 965,
+    "alpha3": "KWT"
+  },
+  {
+    "unicode": "U+1F1F1 U+1F1E6",
+    "dialCode": 856,
+    "alpha3": "LAO"
+  },
+  {
+    "unicode": "U+1F1F1 U+1F1E7",
+    "dialCode": 961,
+    "alpha3": "LBN"
+  },
+  {
+    "unicode": "U+1F1F1 U+1F1F7",
+    "dialCode": 231,
+    "alpha3": "LBR"
+  },
+  {
+    "unicode": "U+1F1F1 U+1F1FE",
+    "dialCode": 218,
+    "alpha3": "LBY"
+  },
+  {
+    "unicode": "U+1F1F1 U+1F1E8",
+    "dialCode": 1758,
+    "alpha3": "LCA"
+  },
+  {
+    "unicode": "U+1F1F1 U+1F1EE",
+    "dialCode": 423,
+    "alpha3": "LIE"
+  },
+  {
+    "unicode": "U+1F1F1 U+1F1F0",
+    "dialCode": 94,
+    "alpha3": "LKA"
+  },
+  {
+    "unicode": "U+1F1F1 U+1F1F8",
+    "dialCode": 266,
+    "alpha3": "LSO"
+  },
+  {
+    "unicode": "U+1F1F1 U+1F1F9",
+    "dialCode": 370,
+    "alpha3": "LTU"
+  },
+  {
+    "unicode": "U+1F1F1 U+1F1FA",
+    "dialCode": 352,
+    "alpha3": "LUX"
+  },
+  {
+    "unicode": "U+1F1F1 U+1F1FB",
+    "dialCode": 371,
+    "alpha3": "LVA"
+  },
+  {
+    "unicode": "U+1F1F2 U+1F1F4",
+    "dialCode": 853,
+    "alpha3": "MAC"
+  },
+  {
+    "unicode": "U+1F1F2 U+1F1EB",
+    "dialCode": 590,
+    "alpha3": "MAF"
+  },
+  {
+    "unicode": "U+1F1F2 U+1F1E6",
+    "dialCode": 212,
+    "alpha3": "MAR"
+  },
+  {
+    "unicode": "U+1F1F2 U+1F1E8",
+    "dialCode": 377,
+    "alpha3": "MCO"
+  },
+  {
+    "unicode": "U+1F1F2 U+1F1E9",
+    "dialCode": 373,
+    "alpha3": "MDA"
+  },
+  {
+    "unicode": "U+1F1F2 U+1F1EC",
+    "dialCode": 261,
+    "alpha3": "MDG"
+  },
+  {
+    "unicode": "U+1F1F2 U+1F1FB",
+    "dialCode": 960,
+    "alpha3": "MDV"
+  },
+  {
+    "unicode": "U+1F1F2 U+1F1FD",
+    "dialCode": 52,
+    "alpha3": "MEX"
+  },
+  {
+    "unicode": "U+1F1F2 U+1F1ED",
+    "dialCode": 692,
+    "alpha3": "MHL"
+  },
+  {
+    "unicode": "U+1F1F2 U+1F1F0",
+    "dialCode": 389,
+    "alpha3": "MKD"
+  },
+  {
+    "unicode": "U+1F1F2 U+1F1F1",
+    "dialCode": 223,
+    "alpha3": "MLI"
+  },
+  {
+    "unicode": "U+1F1F2 U+1F1F9",
+    "dialCode": 356,
+    "alpha3": "MLT"
+  },
+  {
+    "unicode": "U+1F1F2 U+1F1F2",
+    "dialCode": 95,
+    "alpha3": "MMR"
+  },
+  {
+    "unicode": "U+1F1F2 U+1F1EA",
+    "dialCode": 382,
+    "alpha3": "MNE"
+  },
+  {
+    "unicode": "U+1F1F2 U+1F1F3",
+    "dialCode": 976,
+    "alpha3": "MNG"
+  },
+  {
+    "unicode": "U+1F1F2 U+1F1F5",
+    "dialCode": 1670,
+    "alpha3": "MNP"
+  },
+  {
+    "unicode": "U+1F1F2 U+1F1FF",
+    "dialCode": 258,
+    "alpha3": "MOZ"
+  },
+  {
+    "unicode": "U+1F1F2 U+1F1F7",
+    "dialCode": 222,
+    "alpha3": "MRT"
+  },
+  {
+    "unicode": "U+1F1F2 U+1F1F8",
+    "dialCode": 1664,
+    "alpha3": "MSR"
+  },
+  {
+    "unicode": "U+1F1F2 U+1F1F6",
+    "dialCode": 596,
+    "alpha3": "MTQ"
+  },
+  {
+    "unicode": "U+1F1F2 U+1F1FA",
+    "dialCode": 230,
+    "alpha3": "MUS"
+  },
+  {
+    "unicode": "U+1F1F2 U+1F1FC",
+    "dialCode": 265,
+    "alpha3": "MWI"
+  },
+  {
+    "unicode": "U+1F1F2 U+1F1FE",
+    "dialCode": 60,
+    "alpha3": "MYS"
+  },
+  {
+    "unicode": "U+1F1FE U+1F1F9",
+    "dialCode": 262,
+    "alpha3": "MYT"
+  },
+  {
+    "unicode": "U+1F1F3 U+1F1E6",
+    "dialCode": 264,
+    "alpha3": "NAM"
+  },
+  {
+    "unicode": "U+1F1F3 U+1F1E8",
+    "dialCode": 687,
+    "alpha3": "NCL"
+  },
+  {
+    "unicode": "U+1F1F3 U+1F1EA",
+    "dialCode": 227,
+    "alpha3": "NER"
+  },
+  {
+    "unicode": "U+1F1F3 U+1F1EB",
+    "dialCode": 672,
+    "alpha3": "NFK"
+  },
+  {
+    "unicode": "U+1F1F3 U+1F1EC",
+    "dialCode": 234,
+    "alpha3": "NGA"
+  },
+  {
+    "unicode": "U+1F1F3 U+1F1EE",
+    "dialCode": 505,
+    "alpha3": "NIC"
+  },
+  {
+    "unicode": "U+1F1F3 U+1F1FA",
+    "dialCode": 683,
+    "alpha3": "NIU"
+  },
+  {
+    "unicode": "U+1F1F3 U+1F1F1",
+    "dialCode": 31,
+    "alpha3": "NLD"
+  },
+  {
+    "unicode": "U+1F1F3 U+1F1F4",
+    "dialCode": 47,
+    "alpha3": "NOR"
+  },
+  {
+    "unicode": "U+1F1F3 U+1F1F5",
+    "dialCode": 977,
+    "alpha3": "NPL"
+  },
+  {
+    "unicode": "U+1F1F3 U+1F1F7",
+    "dialCode": 674,
+    "alpha3": "NRU"
+  },
+  {
+    "unicode": "U+1F1F3 U+1F1FF",
+    "dialCode": 64,
+    "alpha3": "NZL"
+  },
+  {
+    "unicode": "U+1F1F4 U+1F1F2",
+    "dialCode": 968,
+    "alpha3": "OMN"
+  },
+  {
+    "unicode": "U+1F1F5 U+1F1F0",
+    "dialCode": 92,
+    "alpha3": "PAK"
+  },
+  {
+    "unicode": "U+1F1F5 U+1F1E6",
+    "dialCode": 507,
+    "alpha3": "PAN"
+  },
+  {
+    "unicode": "U+1F1F5 U+1F1F3",
+    "dialCode": 872,
+    "alpha3": "PCN"
+  },
+  {
+    "unicode": "U+1F1F5 U+1F1EA",
+    "dialCode": 51,
+    "alpha3": "PER"
+  },
+  {
+    "unicode": "U+1F1F5 U+1F1ED",
+    "dialCode": 63,
+    "alpha3": "PHL"
+  },
+  {
+    "unicode": "U+1F1F5 U+1F1FC",
+    "dialCode": 680,
+    "alpha3": "PLW"
+  },
+  {
+    "unicode": "U+1F1F5 U+1F1EC",
+    "dialCode": 675,
+    "alpha3": "PNG"
+  },
+  {
+    "unicode": "U+1F1F5 U+1F1F1",
+    "dialCode": 48,
+    "alpha3": "POL"
+  },
+  {
+    "unicode": "U+1F1F5 U+1F1F7",
+    "dialCode": 1939,
+    "alpha3": "PRI"
+  },
+  {
+    "unicode": "U+1F1F0 U+1F1F5",
+    "dialCode": 850,
+    "alpha3": "PRK"
+  },
+  {
+    "unicode": "U+1F1F5 U+1F1F9",
+    "dialCode": 351,
+    "alpha3": "PRT"
+  },
+  {
+    "unicode": "U+1F1F5 U+1F1FE",
+    "dialCode": 595,
+    "alpha3": "PRY"
+  },
+  {
+    "unicode": "U+1F1F5 U+1F1F8",
+    "dialCode": 970,
+    "alpha3": "PSE"
+  },
+  {
+    "unicode": "U+1F1F5 U+1F1EB",
+    "dialCode": 689,
+    "alpha3": "PYF"
+  },
+  {
+    "unicode": "U+1F1F6 U+1F1E6",
+    "dialCode": 974,
+    "alpha3": "QAT"
+  },
+  {
+    "unicode": "U+1F1F7 U+1F1EA",
+    "dialCode": 262,
+    "alpha3": "REU"
+  },
+  {
+    "unicode": "U+1F1F7 U+1F1F4",
+    "dialCode": 40,
+    "alpha3": "ROU"
+  },
+  {
+    "unicode": "U+1F1F7 U+1F1FA",
+    "dialCode": 7,
+    "alpha3": "RUS"
+  },
+  {
+    "unicode": "U+1F1F7 U+1F1FC",
+    "dialCode": 250,
+    "alpha3": "RWA"
+  },
+  {
+    "unicode": "U+1F1F8 U+1F1E6",
+    "dialCode": 966,
+    "alpha3": "SAU"
+  },
+  {
+    "unicode": "U+1F1F8 U+1F1E9",
+    "dialCode": 249,
+    "alpha3": "SDN"
+  },
+  {
+    "unicode": "U+1F1F8 U+1F1F3",
+    "dialCode": 221,
+    "alpha3": "SEN"
+  },
+  {
+    "unicode": "U+1F1F8 U+1F1EC",
+    "dialCode": 65,
+    "alpha3": "SGP"
+  },
+  {
+    "unicode": "U+1F1EC U+1F1F8",
+    "dialCode": 500,
+    "alpha3": "SGS"
+  },
+  {
+    "unicode": "U+1F1F8 U+1F1ED",
+    "dialCode": 290,
+    "alpha3": "SHN"
+  },
+  {
+    "unicode": "U+1F1F8 U+1F1EF",
+    "dialCode": 47,
+    "alpha3": "SJM"
+  },
+  {
+    "unicode": "U+1F1F8 U+1F1E7",
+    "dialCode": 677,
+    "alpha3": "SLB"
+  },
+  {
+    "unicode": "U+1F1F8 U+1F1F1",
+    "dialCode": 232,
+    "alpha3": "SLE"
+  },
+  {
+    "unicode": "U+1F1F8 U+1F1FB",
+    "dialCode": 503,
+    "alpha3": "SLV"
+  },
+  {
+    "unicode": "U+1F1F8 U+1F1F2",
+    "dialCode": 378,
+    "alpha3": "SMR"
+  },
+  {
+    "unicode": "U+1F1F8 U+1F1F4",
+    "dialCode": 252,
+    "alpha3": "SOM"
+  },
+  {
+    "unicode": "U+1F1F5 U+1F1F2",
+    "dialCode": 508,
+    "alpha3": "SPM"
+  },
+  {
+    "unicode": "U+1F1F7 U+1F1F8",
+    "dialCode": 381,
+    "alpha3": "SRB"
+  },
+  {
+    "unicode": "U+1F1F8 U+1F1F8",
+    "dialCode": 211,
+    "alpha3": "SSD"
+  },
+  {
+    "unicode": "U+1F1F8 U+1F1F9",
+    "dialCode": 239,
+    "alpha3": "STP"
+  },
+  {
+    "unicode": "U+1F1F8 U+1F1F7",
+    "dialCode": 597,
+    "alpha3": "SUR"
+  },
+  {
+    "unicode": "U+1F1F8 U+1F1F0",
+    "dialCode": 421,
+    "alpha3": "SVK"
+  },
+  {
+    "unicode": "U+1F1F8 U+1F1EE",
+    "dialCode": 386,
+    "alpha3": "SVN"
+  },
+  {
+    "unicode": "U+1F1F8 U+1F1EA",
+    "dialCode": 46,
+    "alpha3": "SWE"
+  },
+  {
+    "unicode": "U+1F1F8 U+1F1FF",
+    "dialCode": 268,
+    "alpha3": "SWZ"
+  },
+  {
+    "unicode": "U+1F1F8 U+1F1E8",
+    "dialCode": 248,
+    "alpha3": "SYC"
+  },
+  {
+    "unicode": "U+1F1F8 U+1F1FE",
+    "dialCode": 963,
+    "alpha3": "SYR"
+  },
+  {
+    "unicode": "U+1F1F9 U+1F1E8",
+    "dialCode": 1649,
+    "alpha3": "TCA"
+  },
+  {
+    "unicode": "U+1F1F9 U+1F1E9",
+    "dialCode": 235,
+    "alpha3": "TCD"
+  },
+  {
+    "unicode": "U+1F1F9 U+1F1EC",
+    "dialCode": 228,
+    "alpha3": "TGO"
+  },
+  {
+    "unicode": "U+1F1F9 U+1F1ED",
+    "dialCode": 66,
+    "alpha3": "THA"
+  },
+  {
+    "unicode": "U+1F1F9 U+1F1EF",
+    "dialCode": 992,
+    "alpha3": "TJK"
+  },
+  {
+    "unicode": "U+1F1F9 U+1F1F0",
+    "dialCode": 690,
+    "alpha3": "TKL"
+  },
+  {
+    "unicode": "U+1F1F9 U+1F1F2",
+    "dialCode": 993,
+    "alpha3": "TKM"
+  },
+  {
+    "unicode": "U+1F1F9 U+1F1F1",
+    "dialCode": 670,
+    "alpha3": "TLS"
+  },
+  {
+    "unicode": "U+1F1F9 U+1F1F4",
+    "dialCode": 676,
+    "alpha3": "TON"
+  },
+  {
+    "unicode": "U+1F1F9 U+1F1F9",
+    "dialCode": 1868,
+    "alpha3": "TTO"
+  },
+  {
+    "unicode": "U+1F1F9 U+1F1F3",
+    "dialCode": 216,
+    "alpha3": "TUN"
+  },
+  {
+    "unicode": "U+1F1F9 U+1F1F7",
+    "dialCode": 90,
+    "alpha3": "TUR"
+  },
+  {
+    "unicode": "U+1F1F9 U+1F1FB",
+    "dialCode": 688,
+    "alpha3": "TUV"
+  },
+  {
+    "unicode": "U+1F1F9 U+1F1FC",
+    "dialCode": 886,
+    "alpha3": "TWN"
+  },
+  {
+    "unicode": "U+1F1F9 U+1F1FF",
+    "dialCode": 255,
+    "alpha3": "TZA"
+  },
+  {
+    "unicode": "U+1F1FA U+1F1EC",
+    "dialCode": 256,
+    "alpha3": "UGA"
+  },
+  {
+    "unicode": "U+1F1FA U+1F1E6",
+    "dialCode": 380,
+    "alpha3": "UKR"
+  },
+  {
+    "unicode": "U+1F1FA U+1F1FE",
+    "dialCode": 598,
+    "alpha3": "URY"
+  },
+  {
+    "unicode": "U+1F1FA U+1F1F8",
+    "dialCode": 1,
+    "alpha3": "USA"
+  },
+  {
+    "unicode": "U+1F1FA U+1F1FF",
+    "dialCode": 998,
+    "alpha3": "UZB"
+  },
+  {
+    "unicode": "U+1F1FB U+1F1E6",
+    "dialCode": 379,
+    "alpha3": "VAT"
+  },
+  {
+    "unicode": "U+1F1FB U+1F1E8",
+    "dialCode": 1784,
+    "alpha3": "VCT"
+  },
+  {
+    "unicode": "U+1F1FB U+1F1EA",
+    "dialCode": 58,
+    "alpha3": "VEN"
+  },
+  {
+    "unicode": "U+1F1FB U+1F1EC",
+    "dialCode": 1284,
+    "alpha3": "VGB"
+  },
+  {
+    "unicode": "U+1F1FB U+1F1EE",
+    "dialCode": 1340,
+    "alpha3": "VIR"
+  },
+  {
+    "unicode": "U+1F1FB U+1F1F3",
+    "dialCode": 84,
+    "alpha3": "VNM"
+  },
+  {
+    "unicode": "U+1F1FB U+1F1FA",
+    "dialCode": 678,
+    "alpha3": "VUT"
+  },
+  {
+    "unicode": "U+1F1FC U+1F1EB",
+    "dialCode": 681,
+    "alpha3": "WLF"
+  },
+  {
+    "unicode": "U+1F1FC U+1F1F8",
+    "dialCode": 685,
+    "alpha3": "WSM"
+  },
+  {
+    "unicode": "U+1F1FE U+1F1EA",
+    "dialCode": 967,
+    "alpha3": "YEM"
+  },
+  {
+    "unicode": "U+1F1FF U+1F1E6",
+    "dialCode": 27,
+    "alpha3": "ZAF"
+  },
+  {
+    "unicode": "U+1F1FF U+1F1F2",
+    "dialCode": 260,
+    "alpha3": "ZMB"
+  },
+  {
+    "unicode": "U+1F1FF U+1F1FC",
+    "dialCode": 263,
+    "alpha3": "ZWE"
+  },
+  {
+    "unicode": "U+1F1FD U+1F1F0",
+    "dialCode": 383,
+    "alpha3": "XKX"
+  }
+]

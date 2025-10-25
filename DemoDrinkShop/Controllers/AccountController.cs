@@ -49,6 +49,13 @@ namespace DemoDrinkShop.Controllers
 			return View(loginModel);
 		}
 
+		[AllowAnonymous]
+		public async Task<IActionResult> Register()
+		{
+
+			return View();
+		}
+
 		public async Task<RedirectResult> Logout(string returnUrl = "/")
 		{
 			await signInManager.SignOutAsync();

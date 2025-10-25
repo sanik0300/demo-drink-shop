@@ -1,0 +1,22 @@
+progress[value="1"]::-webkit-progress-value {
+    background: darkred;
+}
+
+progress[value="2"]::-webkit-progress-value {
+    background: orange;
+}
+
+progress[value="3"]::-webkit-progress-value {
+    background: yellow;
+}
+
+progress[value="4"]::-webkit-progress-value {
+    background: chartreuse;
+}
+
+p, h5 {
+    margin-bottom: 0.5rem
+}
+h5 {
+    margin-top: 0.5rem
+}
