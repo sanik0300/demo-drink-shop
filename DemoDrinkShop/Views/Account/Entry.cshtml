@@ -1,5 +1,4 @@
 ﻿@{
-    ViewBag.Title = "Register";
     Layout = "_AdminLayout";
 }
 <script src="~/js/react/react_helper_functions.js"></script>
@@ -12,8 +11,11 @@
 
 <script type="text/babel" src="~/js/react/full_forms/login_form.js"></script>
 <script type="text/babel" src="~/js/react/full_forms/registration_form.js"></script>
+<script type="text/babel" src="~/js/react/full_forms/form_wrapper.js"></script>
 
 <script type="text/babel" src="~/js/react/react_embedding.js"></script>
 
-<div id="react-here" data-purpose="login"></div>
+<title>Account management...</title>
+
+<div id="react-here" data-purpose=@ViewBag.Purpose></div>
 

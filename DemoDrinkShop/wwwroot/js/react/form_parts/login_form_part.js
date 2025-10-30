@@ -64,7 +64,8 @@ window.LoginFormPart = function LoginFormPart(props) {
             </div>
             <div>
                 <h5>email</h5>
-                <input type="email" style={emailValid? undefined : errorStyles}
+                <input type="email" name="email" 
+                       style={emailValid? undefined : errorStyles}
                        onChange={onEmailInputChanged}/>
             </div>
             <div>

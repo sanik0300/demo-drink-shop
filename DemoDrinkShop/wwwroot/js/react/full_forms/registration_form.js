@@ -55,7 +55,7 @@ window.RegistrationForm = function RegistrationForm() {
     }
 
     return(
-        <form>
+        <form method="post" action="Register">
             <LoginFormPart showPassStrength={true} 
                            totalState={loginState} totalStateSetter={loginStateSetter}/>
             <div id="verify-options">
@@ -76,11 +76,11 @@ window.RegistrationForm = function RegistrationForm() {
             </div>
             <div>
                 <h5>name</h5> 
-                <LimitedTextBox filterFunc={validateCharForName}/>               
+                <LimitedTextBox filterFunc={validateCharForName} propertyName="name"/>               
             </div>
             <div>
                 <h5>address</h5>
-                <LimitedTextBox filterFunc={validateExceptSpecialCharacters}/>
+                <LimitedTextBox filterFunc={validateExceptSpecialCharacters} propertyName="address"/>
             </div>
 
             <input type="submit" value="register" 

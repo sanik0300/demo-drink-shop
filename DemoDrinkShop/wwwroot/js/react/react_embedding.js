@@ -1,6 +1,6 @@
 ﻿const domContainer = document.querySelector('#react-here');
 
-const formPurpose = domContainer.dataset.purpose;
-const WhatToRender = formPurpose === 'login' ? window.LoginForm : window.RegistrationForm;
+const firstPurposeLogin = domContainer.dataset.purpose === 'login';
+const WhatToRender = window.AccountFormWrapper;
 
-ReactDOM.render(<WhatToRender/>, domContainer);
+ReactDOM.render(<WhatToRender loginMode={firstPurposeLogin}/>, domContainer);

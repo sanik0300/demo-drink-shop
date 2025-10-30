@@ -36,7 +36,8 @@ namespace DemoDrinkShop
 			{
 				options.UseSqlServer(configuration["Data:DemoDrinkShopIdentity:ConnectionString"]);
 			});
-			builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppIdentityDbContext>().AddDefaultTokenProviders();
+			builder.Services.AddIdentity<ExtendedIdentityUser, IdentityRole>()
+							.AddEntityFrameworkStores<AppIdentityDbContext>().AddDefaultTokenProviders();
 
 
 			builder.Services.AddMvc(options => 
@@ -99,7 +100,12 @@ namespace DemoDrinkShop
 					page = 1
 				});
 
-				routes.MapRoute(name: null, template: "{controller}/{action}/{id?}");
+                routes.MapRoute(name: null, template: "Account/Login", 
+								defaults: new { controller = "Account", action = "Entry", purpose = "login" });
+                routes.MapRoute(name: null, template: "Account/Register", 
+								defaults: new { controller = "Account", action = "Entry", purpose = "register" });
+
+                routes.MapRoute(name: null, template: "{controller}/{action}/{id?}");
 			});
 
 			app.Lifetime.ApplicationStopping.Register(() =>

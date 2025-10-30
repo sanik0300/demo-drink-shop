@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using DemoDrinkShop.Infrastructure;
+using Microsoft.AspNetCore.Identity;
 
 namespace DemoDrinkShop.Models
 {
@@ -8,12 +9,21 @@ namespace DemoDrinkShop.Models
 		private const string adminPassword = "Secret123$";
 		public static async void EnsurePopulated(IApplicationBuilder app)
 		{
-			UserManager<IdentityUser> userManager = app.ApplicationServices.CreateScope().ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
-			IdentityUser user = await userManager.FindByIdAsync(adminUser);
-			if (user == null)
+			using (IServiceScope scope = app.ApplicationServices.CreateScope()) 
 			{
-				user = new IdentityUser("Admin");
-				await userManager.CreateAsync(user, adminPassword);
+				UserManager<ExtendedIdentityUser> userManager = scope.ServiceProvider.GetRequiredService<UserManager<ExtendedIdentityUser>>();
+				ExtendedIdentityUser user = await userManager.FindByNameAsync(adminUser);
+				if (user == null)
+				{
+					user = new ExtendedIdentityUser() { UserName = "Admin", Email = "example@gmail.com", Address="somewhere test" };
+
+					IPasswordHasher<ExtendedIdentityUser> hasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher<ExtendedIdentityUser>>();
+					string hash = hasher.HashPassword(user, adminPassword);
+
+					user.PasswordHash = hash;
+
+					await userManager.CreateAsync(user, adminPassword);
+				}
 			}
 		}
 	}

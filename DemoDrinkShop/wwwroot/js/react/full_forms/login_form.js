@@ -16,7 +16,7 @@ window.LoginForm = function LoginForm() {
     }
 
     return(
-        <form>
+        <form method="post" action="Login">
             <LoginFormPart showPassStrength={false}
                            totalState={loginState} totalStateSetter={loginStateSetter}/>
 

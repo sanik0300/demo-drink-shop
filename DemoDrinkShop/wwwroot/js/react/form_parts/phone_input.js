@@ -105,6 +105,7 @@ window.PhoneInput = function PhoneInput(props) {
             
             <div style={inputStyles} ref={me}>
                 <LimitedTextBox id="countryInput" maxLength="6" undeletableStart="+"
+                                propertyName="countryCode"
                                 filterFunc={validateOnlyDigits}
                                 rightFocusCallback={()=>{rightTextRef.current.focus();}}
                                 style={{maxWidth: widthFromFont}}
@@ -112,6 +113,7 @@ window.PhoneInput = function PhoneInput(props) {
                                 validityCallback={(b) => { countryOk.current = b; onOneBoxChanged(); }}/>
 
                 <LimitedTextBox id="restOfPhoneInput" style={inputStyles} maxLength="12"
+                                propertyName = "restOfPhone"
                                 leftFocusCallback={()=>{leftTextRef.current.focus();}}
                                 filterFunc={validateOnlyDigits}
                                 validityCallback={(b) => { restPhoneOk.current = b; onOneBoxChanged(); }}/>

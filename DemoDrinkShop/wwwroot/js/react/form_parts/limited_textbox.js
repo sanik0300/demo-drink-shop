@@ -83,7 +83,7 @@ window.LimitedTextBox = function LimitedTextBox(props) {
 
     return (
         <input type={(props.inputtype? props.inputtype : "text")}
-               name="myname" ref={me}
+               name={props.propertyName} ref={me}
                value={(props.undeletableStart? props.undeletableStart + text : text)}
                maxLength={Number(props.maxLength)+getPrefixLength()}
                onInput={handleTextChange}

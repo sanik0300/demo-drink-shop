@@ -29,7 +29,8 @@ window.PasswordBox = function PasswordBox(props) {
 
     return(
         <div>
-            <input id="pass" type={(visibility? "text":"password")}
+            <input id="pass" name="password"
+                   type={(visibility? "text":"password")}
                    onChange={onPasswordTextChanged}
                    style={(empty? errorStyles : undefined)}/>
             <button onClick={(e) => {setVisibility(!visibility); e.preventDefault();}}>{(visibility? "hide" : "show")}</button>

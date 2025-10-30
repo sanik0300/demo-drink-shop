@@ -1,19 +1,8 @@
 ﻿<!DOCTYPE html>
 @{
-    bool loginPage = ViewBag.Title == "Log In";
-    bool editPage = ((string)ViewBag.Title).StartsWith("Edit");
+    bool editPage = ViewBag.Title != null && ((string)ViewBag.Title).StartsWith("Edit");
 
-    string mainDivClass;
-    if (loginPage) {
-        mainDivClass = "card-shadow login-base";
-    }
-    else if (editPage)
-    {
-        mainDivClass = "card-shadow";
-    }
-    else {
-        mainDivClass = "card-shadow form-base";
-    }
+    string mainDivClass = editPage ? "card-shadow" : "card-shadow form-base";
 }
 <html>
     <head>
@@ -24,12 +13,13 @@
         <link rel="stylesheet" href="~/css/myfonts.css" />
         <link rel="stylesheet" href="~/css/adminstyles.css" />
 
-        <title>@ViewBag.Title</title>
-
+        @if(ViewBag.Title != null) 
+        {
+            <title>@ViewBag.Title</title>
+        }
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
         <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-
 
         <script src="~/lib/babel.min.js"></script>
         <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin="anonymous"></script>
@@ -41,7 +31,10 @@
     </head>
 <body onload="reassignValidation()">
         <div class="@mainDivClass">
-            <div class="myformheader"><h4>@ViewBag.Title</h4></div>
+            @if(ViewBag.Title != null) 
+            {
+                <div class="myformheader"><h4>@ViewBag.Title</h4></div>
+            }
             <div>
                 <a asp-action="Logout" asp-controller="Account">
                     @if (editPage) {
