@@ -32,7 +32,8 @@ namespace DemoDrinkShop.Models
 		public Category? Category { get; set; }
 
 		public string? ImageURL { get; set; }
-		public bool ImageFileExists() => ImageFileExists(this.ImageURL);
+		
+		/*public bool ImageFileExists() => ImageFileExists(this.ImageURL);
 		public static bool ImageFileExists(string initUrl)
 		{
             if (initUrl == null) { return false; }
@@ -55,7 +56,7 @@ namespace DemoDrinkShop.Models
             }
         }
 		public string GetDisplayImageSrc() => GetDisplayImageSrc(this.ImageURL);
-		public string GetUniformImageNameWithoutExt() => $"id{ProductID}";
+		public string GetUniformImageNameWithoutExt() => $"id{ProductID}";*/
 		
     }
 }

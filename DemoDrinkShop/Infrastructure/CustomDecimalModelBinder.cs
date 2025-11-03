@@ -6,7 +6,7 @@ namespace DemoDrinkShop.Infrastructure
 	{
 		public Task BindModelAsync(ModelBindingContext bindingContext)
 		{
-			ValueProviderResult val = bindingContext.ValueProvider.GetValue(bindingContext.FieldName);
+			ValueProviderResult val = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
 
 			string fv = val.FirstValue;
 

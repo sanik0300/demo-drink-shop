@@ -83,7 +83,11 @@ fontawesome-free-6.6.0-web/
 *.csproj.user
 */wwwroot/images/
 */wwwroot/lib/
+*/images/
 *.otf
 *.ttf
 *.pubxml
 FakeProductRepository.cs
+drink-demo-storage-firebase-adminsdk-key.json
+appsettings.json
+tests-config.txt

@@ -19,17 +19,25 @@ namespace DemoDrinkShop
             ConfigurationManager configuration = builder.Configuration;
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(configuration["Data:DemoDrinkShopProducts:ConnectionStrings"]);
+                options.UseSqlServer(configuration["Data:DemoDrinkShopProducts:ConnectionString"]);
             });
             builder.Services.AddTransient<IProductRepository, EFProductRepository>();
+
 			builder.Services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+
+			string? OAuthPath = configuration["Firebase:OauthKeyPath"],
+				    bucketName = configuration["Firebase:BucketName"];
+			IImageStorageService serviceForImages = new FirebaseImagesService(bucketName, OAuthPath);
+			builder.Services.AddSingleton(serviceForImages);
+
 			builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 			builder.Services.AddTransient<IOrderRepository, EFOrderRepository>();
 			builder.Services.AddDbContext<AppIdentityDbContext>(options =>
 			{
 				options.UseSqlServer(configuration["Data:DemoDrinkShopIdentity:ConnectionString"]);
 			});
-			builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppIdentityDbContext>().AddDefaultTokenProviders();
+			builder.Services.AddIdentity<ExtendedIdentityUser, IdentityRole>()
+							.AddEntityFrameworkStores<AppIdentityDbContext>().AddDefaultTokenProviders();
 
 
 			builder.Services.AddMvc(options => 
@@ -92,9 +100,18 @@ namespace DemoDrinkShop
 					page = 1
 				});
 
-				routes.MapRoute(name: null, template: "{controller}/{action}/{id?}");
+                routes.MapRoute(name: null, template: "Account/Login", 
+								defaults: new { controller = "Account", action = "Entry", purpose = "login" });
+                routes.MapRoute(name: null, template: "Account/Register", 
+								defaults: new { controller = "Account", action = "Entry", purpose = "register" });
+
+                routes.MapRoute(name: null, template: "{controller}/{action}/{id?}");
 			});
 
+			app.Lifetime.ApplicationStopping.Register(() =>
+			{
+				(serviceForImages as FirebaseImagesService)?.Dispose();
+			});
 
 			SeedData.EnsurePopulated(app);
 			IdentitySeedData.EnsurePopulated(app);

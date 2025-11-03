@@ -1,5 +1,5 @@
 ﻿@using DemoDrinkShop.Models
-@model Product
+@model ProductWrapperViewModel
 @{
     ViewBag.Title = "Edit Product";
     Layout = "_AdminLayout";
@@ -7,78 +7,88 @@
 
 <form asp-action="Edit" method="post" id="editingForm">
     <div class="card-grid">
-    <div>
-    <input type="hidden" asp-for="ProductID" />
-    <div class="login-group">
-        <label asp-for="Name"></label>
-        <div><span asp-validation-for="Name" class="text-danger"></span></div>
-        <input asp-for="Name" class="form-control" />
-    </div>
-    <div class="login-group">
-        <label asp-for="Description"></label>
-        <div><span asp-validation-for="Description" class="text-danger"></span></div>
-        <textarea asp-for="Description" class="form-control"></textarea>
-    </div>
-    <div class="login-group">
-        <label asp-for="Category"></label>
-        <div><span asp-validation-for="Category" class="text-danger"></span></div>
-        <select asp-for="Category" class="form-control">
-            @for(byte i = 0; i<Product.CategoryNames.Count; i++)
-            {
-                if(Model.Category.HasValue && i==(byte)Model.Category)
+        <div>
+            <input type="hidden" asp-for="Product.ProductID" />
+            <input type="hidden" asp-for="Product.ImageURL" />
+            <div class="login-group">
+                <label asp-for="Product.Name"></label>
+                <div>
+                    <span asp-validation-for="Product.Name" class="text-danger"></span>
+                </div>
+                <input asp-for="Product.Name" class="form-control" />
+            </div>
+            <div class="login-group">
+                <label asp-for="Product.Description"></label>
+                <div>
+                    <span asp-validation-for="Product.Description" class="text-danger"></span>
+                </div>
+                <textarea asp-for="Product.Description" class="form-control"></textarea>
+            </div>
+            <div class="login-group">
+                <label asp-for="Product.Category"></label>
+                <div>
+                    <span asp-validation-for="Product.Category" class="text-danger"></span>
+                </div>
+                <select asp-for="Product.Category" class="form-control">
+                    @for (byte i = 0; i < Product.CategoryNames.Count; i++)
+                    {
+                        if (Model.Product.Category.HasValue && i == (byte)Model.Product.Category)
+                        {
+                            <option value=@i selected>@Product.CategoryNames[i]</option>
+                        }
+                        else
+                        {
+                            <option value=@i>@Product.CategoryNames[i]</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="login-group">
+                <label asp-for="Product.Price"></label>
+                <div>
+                    <span asp-validation-for="Product.Price" class="text-danger"></span>
+                </div>
+                <input asp-for="Product.Price" class="form-control" />
+            </div>
+        </div>
+
+        <div>
+            @{  string msgAboutImg;
+                string imageClass = "adminimage";
+                if (Model.Product.ImageURL == null)
                 {
-                    <option value=@i selected>@Product.CategoryNames[i]</option>
+                    msgAboutImg = "Product has no image";
+                }
+                else if (Model.ImageExists.GetValueOrDefault())
+                {
+                    msgAboutImg = "Image";
+                    imageClass += " card-shadow";
                 }
                 else {
-                    <option value=@i>@Product.CategoryNames[i]</option>
+                    msgAboutImg = "Image (not found!)";
                 }
-            }    
-        </select>
-    </div>
-    <div class="login-group">
-        <label asp-for="Price"></label>
-        <div><span asp-validation-for="Price" class="text-danger"></span></div>
-        <input asp-for="Price" class="form-control" />
-    </div>
-    </div>
-
-    <div>
-        @{  string msgAboutImg;
-            string imageClass = "adminimage";
-            if (Model.ImageURL == null)
-            {
-                msgAboutImg = "Product has no image";
             }
-            else if (Model.ImageFileExists())
-            {
-                msgAboutImg = "Image";
-                imageClass += " card-shadow";
-            }
-            else {
-                msgAboutImg = "Image (not found!)";
-            }
-         }
-        <div >
-            <p class="summary-title">@msgAboutImg</p>
-            <input type="file" accept="image/*" name="fileData" id="adminImageInput" 
-                   value="Load" onchange="onImageAdded()" />
-            @if(Model.ImageURL == null)
-            {
-                <input type="button" id="removeImgBtn" value="Remove" 
-                       class="removal-button" style="font-size: 14pt" onclick="onImageCancelOrDelete(true)" disabled />
-            }
-            else {
-                <input type="button" id="removeImgBtn" value="Remove" 
-                       class="removal-button" style="font-size: 14pt" onclick="onImageCancelOrDelete(true)" />
-            }
-            <input id="imgResetBtn" class="checkout" type="button" value="Reset" onclick="onImageCancelOrDelete(false)" disabled />
+            <div>
+                <p class="summary-title">@msgAboutImg</p>
+                <input type="file" accept="image/*" name="fileData" id="adminImageInput"
+                       value="Load" onchange="onImageAdded()" />
+                @if (Model.Product.ImageURL == null)
+                {
+                    <input type="button" id="removeImgBtn" value="Remove"
+                           class="removal-button" style="font-size: 14pt" onclick="onImageCancelOrDelete(true)" disabled />
+                }
+                else {
+                    <input type="button" id="removeImgBtn" value="Remove"
+                           class="removal-button" style="font-size: 14pt" onclick="onImageCancelOrDelete(true)" />
+                }
+                <input id="imgResetBtn" class="checkout" type="button" value="Reset" onclick="onImageCancelOrDelete(false)" disabled />
+            </div>
+            <img src=@Model.ImageSrc class="@imageClass" id="adminImgPreview" />
         </div>
-        <img src=@Model.GetDisplayImageSrc() class="@imageClass" id="adminImgPreview"/>
-    </div>
     </div>
 
     <div style="text-align: center; margin-bottom: 15px">
-        <button class="loginbutton" type="submit">Save</button>
+        <button class="loginbutton" type="button" onclick="onProductEdit()">Save</button>
         <a asp-action="Index" class="checkout">Cancel</a>
     </div>
 </form>

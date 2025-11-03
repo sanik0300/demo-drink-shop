@@ -1,53 +1,134 @@
-﻿using DemoDrinkShop.Models.ViewModels;
+﻿using DemoDrinkShop.Infrastructure;
+using DemoDrinkShop.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DemoDrinkShop.Controllers
 {
 	[Authorize]
 	public class AccountController : Controller
 	{
-		private UserManager<IdentityUser> userManager;
-		private SignInManager<IdentityUser> signInManager;
+		private readonly UserManager<ExtendedIdentityUser> userManager;
+		private readonly SignInManager<ExtendedIdentityUser> signInManager;
+        private readonly IPasswordHasher<ExtendedIdentityUser> passwordHasher;
 
-		public AccountController(UserManager<IdentityUser> userMgr,
-			SignInManager<IdentityUser> signInMgr)
+        public AccountController(UserManager<ExtendedIdentityUser> userMgr, SignInManager<ExtendedIdentityUser> signInMgr, 
+								 IPasswordHasher<ExtendedIdentityUser> hasher)
 		{
 			userManager = userMgr;
 			signInManager = signInMgr;
+			passwordHasher = hasher;
 		}
 
+		[HttpGet]
 		[AllowAnonymous]
-		public ViewResult Login(string returnUrl)
+		public IActionResult Entry(string purpose, string returnUrl)
 		{
-			return View(new LoginModel
+			if(purpose!="login" && purpose!="register")
 			{
-				ReturnUrl = returnUrl
-			});
+				return NotFound();
+			}
+
+			ViewBag.Purpose = purpose;
+            return View(new UserViewModel { ReturnUrl = returnUrl });
 		}
 
 		[HttpPost]
 		[AllowAnonymous]
-		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Login(LoginModel loginModel)
+		[PhoneNumberResourceFilter]
+		[ModelErrorsSurfacingFilter]
+		public async Task<IActionResult> Login([FromForm]UserViewModel loginModel)
 		{
-			if (ModelState.IsValid)
+			if (!ModelState.IsValid)
 			{
-				IdentityUser user =
-				await userManager.FindByNameAsync(loginModel.Name);
-				if (user != null)
-				{
-					await signInManager.SignOutAsync();
-					if ((await signInManager.PasswordSignInAsync(user, loginModel.Password, false, false)).Succeeded)
-					{
-						return Redirect(loginModel?.ReturnUrl ?? "/Admin/Index");
-					}
-				}
+				ModelState.AddModelError("", "Invalid email/phone or password too long");
+                ViewBag.Purpose = "login";
+                return View("Entry");
 			}
-			ModelState.AddModelError("", "Invalid name or password");
-			return View(loginModel);
-		}
+
+			ExtendedIdentityUser? user = null;
+			if (!string.IsNullOrEmpty(loginModel.Email))
+			{
+				user = await userManager.FindByEmailAsync(loginModel.Email);
+			}
+			if(user == null)
+			{
+				user = await userManager.Users.Where(u => u.PhoneNumber == loginModel.Phone).FirstOrDefaultAsync();
+            }
+
+			if (user == null)
+			{
+                ModelState.AddModelError("", "Account not found");
+				ViewBag.Purpose = "login";
+                return View("Entry");
+            } 
+			if(passwordHasher.VerifyHashedPassword(user, user.PasswordHash, loginModel.Password) == PasswordVerificationResult.Failed)
+			{
+                ModelState.AddModelError("", "Wrong password");
+                ViewBag.Purpose = "login";
+                return View("Entry");
+            }
+
+			await signInManager.SignOutAsync();
+			if ((await signInManager.PasswordSignInAsync(user, loginModel.Password, false, false)).Succeeded)
+			{
+				return Redirect(loginModel?.ReturnUrl ?? "/Product/List");
+			}
+
+            ModelState.AddModelError("", "Failed to sign in, try again");
+            ViewBag.Purpose = "login";
+            return View("Entry");
+        }
+
+		[HttpPost]
+		[AllowAnonymous]
+		[PhoneNumberResourceFilter]
+		[ModelErrorsSurfacingFilter]
+		public async Task<IActionResult> Register([FromForm]UserViewModel regModel)
+		{
+			IdentityUser? existingUsr;
+			if(regModel.Email != null)
+			{
+				existingUsr = await userManager.FindByEmailAsync(regModel.Email);
+				if (existingUsr != null)
+				{
+                    ModelState.AddModelError("", "User with such email already exists");
+					return View("Entry");
+                }
+			}
+			if(regModel.Phone != null)
+			{
+				existingUsr = await userManager.Users.Where(u => u.PhoneNumber==regModel.Phone).FirstOrDefaultAsync();
+				if (existingUsr != null)
+				{
+                    ModelState.AddModelError("", "User with such phone number already exists");
+                    return View("Entry");
+                }
+            }
+
+			ExtendedIdentityUser registered = new ExtendedIdentityUser()
+			{
+				Address = regModel.Address,
+				Email = regModel.Email,
+				PhoneNumber = regModel.Phone,
+				VerifyByEmail = !regModel.VerifyByEmail.GetValueOrDefault(),
+				UserName = regModel.Name
+			};
+			registered.PasswordHash = passwordHasher.HashPassword(registered, regModel.Password);
+
+			await userManager.CreateAsync(registered);
+
+			if(signInManager.IsSignedIn(HttpContext.User))
+			{
+				await signInManager.SignOutAsync();
+			}
+			await signInManager.PasswordSignInAsync(registered, regModel.Password, false, false);
+
+            return Redirect(regModel?.ReturnUrl ?? "/Product/List");
+        }
 
 		public async Task<RedirectResult> Logout(string returnUrl = "/")
 		{

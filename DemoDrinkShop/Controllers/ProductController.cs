@@ -1,4 +1,5 @@
-﻿using DemoDrinkShop.Models;
+﻿using DemoDrinkShop.Infrastructure;
+using DemoDrinkShop.Models;
 using DemoDrinkShop.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,12 +7,32 @@ namespace DemoDrinkShop.Controllers
 {
     public class ProductController : Controller
     {
-        private IProductRepository repository;
+        private readonly IProductRepository repository;
+        private readonly IImageStorageService _imagesService;
+
+        private async Task<ProductWrapperViewModel> GetMiniProductWrapper(Product product)
+        {
+            var wrapper = new ProductWrapperViewModel() { Product = product };
+            if (product.ImageURL != null)
+            {
+                bool exists = await _imagesService.ImageExists(product.ImageURL);
+                wrapper.ImageExists = exists;
+                if(exists)
+                {
+                    wrapper.ImageSrc = _imagesService.GetEndURL(product.ImageURL);
+                }
+            }
+            return wrapper;
+        }
+
         public int PageSize { get; set; }
 
-        public ProductController(IProductRepository repo)
+
+        public ProductController(IProductRepository repo, IImageStorageService storageService)
         {
             repository = repo;
+            _imagesService = storageService;
+
             PageSize = 4;
         }
 
@@ -36,6 +57,7 @@ namespace DemoDrinkShop.Controllers
                                     .OrderBy(p => p.ProductID)
                                     .Skip((page - 1) * PageSize)
                                     .Take(PageSize)
+                                    .Select(pr => GetMiniProductWrapper(pr).Result)
                                     .ToArray(),
                 PagingInfo = new PagingInfo()
                 {
