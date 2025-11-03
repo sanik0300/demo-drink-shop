@@ -1,0 +1,29 @@
+﻿@using DemoDrinkShop.Presentation.ViewModels
+@model ProductWrapperViewModel
+
+@{
+	//bool hasImage = Model.ImageURL != null && Model.ImageFileExists();
+	string klass = Model.ImageExists.GetValueOrDefault() ? "card-shadow card-grid" : "card-shadow";
+}
+
+<div class="@klass">
+	<div>
+		<p class="summary-title"> @Model.Product.Name </p>
+
+		<h3 class="price-display">@Model.Product.Price.ToString("c")</h3>
+
+		<form id="@Model.Product.ProductID" asp-action="AddToCart" asp-controller="Cart" method="post">
+			<input type="hidden" asp-for="Product.ProductID" />
+			<input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+			<h4 class="product-desc">@Model.Product.Description</h4>
+			<button class="checkout"  type="submit"> Add To Cart</button>
+		</form>
+	</div>
+
+	@if (Model.ImageExists.GetValueOrDefault())
+	{
+		<div>
+			<img id="crtphoto" class="userimage" src=@Model.ImageSrc />
+		</div>
+	}
+</div>

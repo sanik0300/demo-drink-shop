@@ -1,10 +1,10 @@
-﻿using DemoDrinkShop.Models.ViewModels;
-using DemoDrinkShop.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using DemoDrinkShop.Domain.Entities;
+using DemoDrinkShop.Presentation.ViewModels;
 
 namespace DemoDrinkShop.Infrastructure
 {

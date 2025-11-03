@@ -9,6 +9,7 @@ using System.Net;
 
 using DemoDrinkShop.Infrastructure;
 using Google;
+using DemoDrinkShop.Application.Interfaces;
 namespace DrinkShopTests
 {
     public sealed class MyImageServiceTest : StorageRelatedTest

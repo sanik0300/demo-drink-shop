@@ -1,5 +1,11 @@
+using DemoDrinkShop.Application.Interfaces;
+using DemoDrinkShop.Domain;
+using DemoDrinkShop.Domain.Entities;
 using DemoDrinkShop.Infrastructure;
-using DemoDrinkShop.Models;
+using DemoDrinkShop.Infrastructure.Identity;
+using DemoDrinkShop.Infrastructure.Persistence;
+using DemoDrinkShop.Infrastructure.Repositories;
+using DemoDrinkShop.Presentation.ModelBinders;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
