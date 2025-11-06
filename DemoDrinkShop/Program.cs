@@ -46,11 +46,17 @@ namespace DemoDrinkShop
 							.AddEntityFrameworkStores<AppIdentityDbContext>().AddDefaultTokenProviders();
 
 
-			builder.Services.AddMvc(options => 
+			builder.Services.AddMvc(options =>
 			{
 				options.EnableEndpointRouting = false;
 				options.ModelBinderProviders.Insert(0, new CustomDecimalModelBinderProvider());
-			});
+			})
+			  .AddRazorOptions(options => 
+			{
+                options.ViewLocationFormats.Clear(); 
+                options.ViewLocationFormats.Add("/Presentation/Views/{1}/{0}.cshtml");
+                options.ViewLocationFormats.Add("/Presentation/Views/Shared/{0}.cshtml");
+            });
 			builder.Services.AddMemoryCache();
 			builder.Services.AddSession();
 			var app = builder.Build();
