@@ -45,7 +45,7 @@ window.LoginFormPart = function LoginFormPart(props) {
 
             if(little && big && digits && special) { break; }
         }
-        var result = 0 + little + big + digits + special;
+        var result = 0.5 + little + big + digits + special;
         return result
     }
 
@@ -73,7 +73,7 @@ window.LoginFormPart = function LoginFormPart(props) {
                 <PasswordBox passwordStrengthCallback={onPassStrengthChanged}
                              strengthCalculator={(props.showPassStrength? calculatePassStrength : undefined)}/>
                 {(props.showPassStrength?
-                    <progress type="progress" min="0" max="4" value={passStrength.toString()}
+                    <progress type="progress" min="0" max="4" value={Math.floor(passStrength).toString()}
                             style={passProgressStyles}></progress>
                     :
                     undefined

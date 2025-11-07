@@ -14,7 +14,7 @@ window.PasswordBox = function PasswordBox(props) {
             props.passwordStrengthCallback(0);
             return;
         }
-        if(pass.length<6) {
+        if(pass.length<8) {
             props.passwordStrengthCallback(1);
             return;
         }

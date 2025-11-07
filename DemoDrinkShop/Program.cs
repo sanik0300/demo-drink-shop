@@ -44,7 +44,7 @@ namespace DemoDrinkShop
 			});
 			builder.Services.AddIdentity<ExtendedIdentityUser, IdentityRole>()
 							.AddEntityFrameworkStores<AppIdentityDbContext>().AddDefaultTokenProviders();
-
+			builder.Services.AddTransient<IPasswordVocabularyService, PasswordVocabularyService>();
 
 			builder.Services.AddMvc(options =>
 			{
@@ -127,6 +127,7 @@ namespace DemoDrinkShop
 
 			SeedData.EnsurePopulated(app);
 			IdentitySeedData.EnsurePopulated(app);
+			PasswordVocabularyService.EnsurePopulated(app);
 
 			app.Run();
         }

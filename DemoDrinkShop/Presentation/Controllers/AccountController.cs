@@ -1,4 +1,5 @@
 ﻿using DemoDrinkShop.Application;
+using DemoDrinkShop.Application.Interfaces;
 using DemoDrinkShop.Infrastructure.Identity;
 using DemoDrinkShop.Presentation.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -14,13 +15,15 @@ namespace DemoDrinkShop.Presentation.Controllers
         private readonly UserManager<ExtendedIdentityUser> userManager;
         private readonly SignInManager<ExtendedIdentityUser> signInManager;
         private readonly IPasswordHasher<ExtendedIdentityUser> passwordHasher;
+        private readonly IPasswordVocabularyService passwordService;
 
         public AccountController(UserManager<ExtendedIdentityUser> userMgr, SignInManager<ExtendedIdentityUser> signInMgr,
-                                 IPasswordHasher<ExtendedIdentityUser> hasher)
+                                 IPasswordHasher<ExtendedIdentityUser> hasher, IPasswordVocabularyService hashingService)
         {
             userManager = userMgr;
             signInManager = signInMgr;
             passwordHasher = hasher;
+            this.passwordService = hashingService;
         }
 
         [HttpGet]
@@ -107,6 +110,12 @@ namespace DemoDrinkShop.Presentation.Controllers
                     ModelState.AddModelError("", "User with such phone number already exists");
                     return View("Entry");
                 }
+            }
+
+            if(await passwordService.IsToReject(regModel.Password))
+            {
+                ModelState.AddModelError("", "Password from a prohibited list");
+                return View("Entry");
             }
 
             ExtendedIdentityUser registered = new ExtendedIdentityUser()
