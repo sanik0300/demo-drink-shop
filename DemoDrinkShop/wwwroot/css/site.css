@@ -10,7 +10,7 @@ progress {
     -webkit-appearance: none;
 }
 
-input[type=text], input[type=email], input[type=password], select {
+input[type=text], input[type=email], input[type=password], input[type=number], select {
     border-top-left-radius: 10px;
     border-bottom-right-radius: 10px;
     border-top-right-radius: 4px;
@@ -27,6 +27,12 @@ input[type=submit], input[type=button], button[type=submit], select, textarea, a
     border-top-right-radius: 8px;
     border-bottom-left-radius: 8px;
     padding: 10px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .serious-text {

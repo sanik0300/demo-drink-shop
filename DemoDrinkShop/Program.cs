@@ -116,6 +116,8 @@ namespace DemoDrinkShop
 								defaults: new { controller = "Account", action = "Entry", purpose = "login" });
                 routes.MapRoute(name: null, template: "Account/Register", 
 								defaults: new { controller = "Account", action = "Entry", purpose = "register" });
+                routes.MapRoute(name: null, template: "Account/ChangePassword",
+								defaults: new { controller = "Account", action = "Entry", purpose = "code" });
 
                 routes.MapRoute(name: null, template: "{controller}/{action}/{id?}");
 			});

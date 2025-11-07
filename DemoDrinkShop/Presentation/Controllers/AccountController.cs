@@ -6,12 +6,15 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace DemoDrinkShop.Presentation.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+        private static readonly string[] entryPurposes = { "login", "register", "code" };
+
         private readonly UserManager<ExtendedIdentityUser> userManager;
         private readonly SignInManager<ExtendedIdentityUser> signInManager;
         private readonly IPasswordHasher<ExtendedIdentityUser> passwordHasher;
@@ -30,10 +33,12 @@ namespace DemoDrinkShop.Presentation.Controllers
         [AllowAnonymous]
         public IActionResult Entry(string purpose, string returnUrl)
         {
-            if (purpose != "login" && purpose != "register")
+            if (!entryPurposes.Contains(purpose))
             {
                 return NotFound();
             }
+
+            Debug.WriteLine(Request);
 
             ViewBag.Purpose = purpose;
             return View(new UserViewModel { ReturnUrl = returnUrl });
