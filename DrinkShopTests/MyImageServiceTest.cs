@@ -6,10 +6,9 @@ using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net;
-
-using DemoDrinkShop.Infrastructure;
 using Google;
 using DemoDrinkShop.Application.Interfaces;
+using DemoDrinkShop.Infrastructure.Services;
 namespace DrinkShopTests
 {
     public sealed class MyImageServiceTest : StorageRelatedTest

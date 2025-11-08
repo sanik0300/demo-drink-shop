@@ -20,7 +20,7 @@ input[type=text], input[type=email], input[type=password], input[type=number], s
     font-size: 18pt;
     font-weight: 600;
 }
-input[type=submit], input[type=button], button[type=submit], select, textarea, a.checkout, a.loginbutton {
+input[type=submit], input[type=button], button, select, textarea, a.checkout, a.loginbutton {
     
     border-top-left-radius: 15px;
     border-bottom-right-radius: 15px;

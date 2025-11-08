@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using System.Diagnostics;
 
 namespace DemoDrinkShop.Presentation.Controllers
@@ -19,14 +20,18 @@ namespace DemoDrinkShop.Presentation.Controllers
         private readonly SignInManager<ExtendedIdentityUser> signInManager;
         private readonly IPasswordHasher<ExtendedIdentityUser> passwordHasher;
         private readonly IPasswordVocabularyService passwordService;
+        private readonly ICodeVerificationService codeService;
+        private readonly IMemoryCache memoryCache;
 
-        public AccountController(UserManager<ExtendedIdentityUser> userMgr, SignInManager<ExtendedIdentityUser> signInMgr,
-                                 IPasswordHasher<ExtendedIdentityUser> hasher, IPasswordVocabularyService hashingService)
+        public AccountController(IServiceProvider serviceProvider, IMemoryCache memoryCache)
         {
-            userManager = userMgr;
-            signInManager = signInMgr;
-            passwordHasher = hasher;
-            this.passwordService = hashingService;
+            userManager = serviceProvider.GetRequiredService<UserManager<ExtendedIdentityUser>>();
+            signInManager = serviceProvider.GetRequiredService<SignInManager<ExtendedIdentityUser>>();
+            passwordHasher = serviceProvider.GetRequiredService<IPasswordHasher<ExtendedIdentityUser>>();
+
+            passwordService = serviceProvider.GetRequiredService<IPasswordVocabularyService>();
+            codeService = serviceProvider.GetRequiredService<ICodeVerificationService>();
+            this.memoryCache = memoryCache;
         }
 
         [HttpGet]
@@ -52,7 +57,7 @@ namespace DemoDrinkShop.Presentation.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Invalid email/phone or password too long");
+                ModelState.AddModelError("", "Invalid email/phone or password too short");
                 ViewBag.Purpose = "login";
                 return View("Entry");
             }
@@ -149,6 +154,33 @@ namespace DemoDrinkShop.Presentation.Controllers
             await signInManager.SignOutAsync();
             return Redirect(returnUrl);
         }
-    }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<string> GetMyEmail()
+        {
+            IdentityUser? crtUser = await userManager.GetUserAsync(HttpContext.User);
+            if(crtUser == null) { return string.Empty; }
+            return crtUser.Email ?? string.Empty;
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> SendVerificationCode([FromForm] string emailTo)
+        {
+            string cacheKey = $"code_{emailTo}";
+            if(memoryCache.TryGetValue(cacheKey, out var cache))
+            {
+                int secondsLeft = 30 - (DateTime.UtcNow - (DateTime)cache).Seconds;
+
+                return StatusCode(StatusCodes.Status429TooManyRequests, $"Wait {secondsLeft} more seconds before resending code");
+            }
+
+            string code = Random.Shared.Next(1000, 10_000).ToString();
+            await codeService.SendCode(emailTo, code);
+
+            memoryCache.Set(cacheKey, DateTime.UtcNow, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromSeconds(30)));
+            return Ok();
+        }
+    }
 }

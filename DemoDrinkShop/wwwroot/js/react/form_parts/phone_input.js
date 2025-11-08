@@ -77,13 +77,15 @@ window.PhoneInput = function PhoneInput(props) {
         props.totalStateSetter(props.totalState);
     }
 
+    async function fetchCountries() {
+        let jsontxt = await fetchTextData('/js/react/csvjson_countries.json')
+        let jsonCountries = JSON.parse(jsontxt)
+        jsonCountries.forEach((country) => country.emoji = unicodeToEmoji(country.unicode) );
+        setCountriesList(jsonCountries)
+    }
+    
     React.useEffect(() => {
-            async function fetchCountries() {
-                let jsontxt = await fetchJsonText('/js/react/csvjson_countries.json')
-                let jsonCountries = JSON.parse(jsontxt)
-                jsonCountries.forEach((country) => country.emoji = unicodeToEmoji(country.unicode) );
-                setCountriesList(jsonCountries)
-            }
+
             leftTextRef.current = me.current.children[0];
             rightTextRef.current = me.current.children[1];
             fetchCountries()

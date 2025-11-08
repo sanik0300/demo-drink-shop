@@ -1,11 +1,10 @@
 ﻿using DemoDrinkShop.Application.Interfaces;
+using DemoDrinkShop.Infrastructure.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace DemoDrinkShop.Infrastructure.Identity
+namespace DemoDrinkShop.Infrastructure.Services
 {
     public class PasswordVocabularyService : IPasswordVocabularyService
     {
@@ -13,7 +12,7 @@ namespace DemoDrinkShop.Infrastructure.Identity
         private readonly AppIdentityDbContext identityDbContext;
         static PasswordVocabularyService()
         {
-            string pepper = File.ReadAllText("pepper.txt");
+            string pepper = File.ReadAllText("Credentials/pepper.txt");
             _pepperBytes = Encoding.UTF8.GetBytes(pepper);
         }
         public PasswordVocabularyService(AppIdentityDbContext identityDbContext) => this.identityDbContext = identityDbContext;
@@ -35,7 +34,7 @@ namespace DemoDrinkShop.Infrastructure.Identity
                 await idContext.SaveChangesAsync();
             }
         }
-        
+
         public string ComputeHash(string text)
         {
             string hex;
@@ -50,7 +49,7 @@ namespace DemoDrinkShop.Infrastructure.Identity
         public async Task<bool> IsToReject(string pass)
         {
             string hashedStr = ComputeHash(pass);
-            return await identityDbContext.UselessPasswords.AnyAsync(p => p.HashedValue==hashedStr);
+            return await identityDbContext.UselessPasswords.AnyAsync(p => p.HashedValue == hashedStr);
         }
     }
 }

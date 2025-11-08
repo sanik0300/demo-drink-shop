@@ -19,35 +19,6 @@ window.LoginFormPart = function LoginFormPart(props) {
         props.totalStateSetter(props.totalState)
     }
 
-        
-    function isSpecialCharacter(c) {
-        return (c >= '!' && c <= '/') || (c >= ':' && c <= '@') || (c >= '[' && c <= '`') || (c >= '{' && c <= '~');
-    }
-
-    function calculatePassStrength(pwd) {
-
-        var little=false, big=false, digits=false, special=false;
-        for (let i = 0; i < pwd.length; i++) 
-        {
-            var c = pwd[i];
-            if(isDigit(c)) {
-                digits = true; 
-            }
-            else if (isSpecialCharacter(c)) {
-                special = true;
-            }
-            else if(c == c.toUpperCase()) {
-                big = true;
-            }
-            else {
-                little = true;
-            }
-
-            if(little && big && digits && special) { break; }
-        }
-        var result = 0.5 + little + big + digits + special;
-        return result
-    }
 
     function onPassStrengthChanged(strength) 
     {

@@ -1,10 +1,10 @@
 using DemoDrinkShop.Application.Interfaces;
 using DemoDrinkShop.Domain;
 using DemoDrinkShop.Domain.Entities;
-using DemoDrinkShop.Infrastructure;
 using DemoDrinkShop.Infrastructure.Identity;
 using DemoDrinkShop.Infrastructure.Persistence;
 using DemoDrinkShop.Infrastructure.Repositories;
+using DemoDrinkShop.Infrastructure.Services;
 using DemoDrinkShop.Presentation.ModelBinders;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -31,10 +31,8 @@ namespace DemoDrinkShop
 
 			builder.Services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
 
-			string? OAuthPath = configuration["Firebase:OauthKeyPath"],
-				    bucketName = configuration["Firebase:BucketName"];
-			IImageStorageService serviceForImages = new FirebaseImagesService(bucketName, OAuthPath);
-			builder.Services.AddSingleton(serviceForImages);
+			builder.Services.AddSingleton<IImageStorageService, FirebaseImagesService>();
+			builder.Services.AddSingleton<ICodeVerificationService, EmailCodeVerificationService>();
 
 			builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 			builder.Services.AddTransient<IOrderRepository, EFOrderRepository>();
@@ -124,7 +122,8 @@ namespace DemoDrinkShop
 
 			app.Lifetime.ApplicationStopping.Register(() =>
 			{
-				(serviceForImages as FirebaseImagesService)?.Dispose();
+				(app.Services.GetService<IImageStorageService>() as FirebaseImagesService)?.Dispose();
+				(app.Services.GetService<ICodeVerificationService>() as EmailCodeVerificationService)?.Dispose();
 			});
 
 			SeedData.EnsurePopulated(app);
