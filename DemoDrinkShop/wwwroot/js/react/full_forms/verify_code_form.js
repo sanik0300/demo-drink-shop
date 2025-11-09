@@ -5,12 +5,18 @@ window.VerificationCodeForm = function VerificationCodeForm(props)
 
     const [blockSecondsLeft, setBlockSecondsLeft] = React.useState(0);
 
+    const [passStrength, setPassStrength] = React.useState(0);
+
     const emailInput = React.useRef(null);
     const resendTextP = React.useRef(null);
 
     const resendBlockIntervalRef = React.useRef(null);
-
-    const hiddenTextStyle = {visibility: 'hidden'}
+    
+    function onEmailInputChanged(e) 
+    {
+        var result = e.target.value.length > 0 && e.target.validity.valid;
+        setEmailValid(result); 
+    }
 
     function startBlockingButton() 
     {
@@ -32,9 +38,12 @@ window.VerificationCodeForm = function VerificationCodeForm(props)
 
     const request2faCode = async () => {
 
+        var formData = new FormData();
+        formData.append('emailTo', emailInput.current.value);
+
         await fetch("SendVerificationCode", {
             method: 'POST',
-            body: new FormData(emailInput.current.parentElement)
+            body: formData
         })
         .then(async (response) => {
             if(response.ok) {
@@ -43,10 +52,20 @@ window.VerificationCodeForm = function VerificationCodeForm(props)
         })
     }
 
-    function onEmailInputChanged(e) 
-    {
-        var result = e.target.value.length > 0 && e.target.validity.valid;
-        setEmailValid(result); 
+    async function onCodeSubmit() {
+        await fetch("VerifyPasswordChange", {
+            method: 'PUT',
+            body: new FormData(emailInput.current.parentElement)
+        })
+        .then(async (response) => {
+            if(response.ok) {
+                followRedirect(response.url)
+            }
+            else {
+                var txt = await response.text();
+                console.log(txt)
+            }
+        })        
     }
 
     React.useEffect(() => {
@@ -67,19 +86,24 @@ window.VerificationCodeForm = function VerificationCodeForm(props)
                     <button type="button" onClick={request2faCode}
                             disabled={!emailValid || blockSecondsLeft > 0}>Send</button>
 
-                    <p style={(blockSecondsLeft > 0? undefined : hiddenTextStyle)} ref={resendTextP}>
+                    <p style={(blockSecondsLeft > 0? undefined : {visibility: 'hidden'})} ref={resendTextP}>
                         Sending again possible in {blockSecondsLeft} seconds</p>
                 </div>                       
-            </form>
-            <form>
+
                 <h5>Enter the code from email</h5>
 
-                <input name="code2fa" type="number" placeholder="XXXX"  
+                <input name="code" type="number" placeholder="XXXX"  
                     min="1000" max="9999" 
                     style={codeOk? undefined : errorStyles}
                     onChange={(e) => {setCodeOk(e.target.validity.valid)}}/>
-                 
-                <input type="submit" disabled={!codeOk} value="Submit"></input>
+                
+                <h5>new password</h5>
+                <PasswordBox passwordStrengthCallback={(s)=>setPassStrength(s)} strengthCalculator={calculatePassStrength}/>
+                <progress type="progress" min="0" max="4" value={Math.floor(passStrength).toString()}
+                          style={(passStrength == 0? {visibility: 'hidden'} : undefined)}></progress>
+
+                <button type="button" disabled={!codeOk || passStrength <= 1}
+                        onClick={onCodeSubmit}>Submit</button>
             </form>
         </div>
     )

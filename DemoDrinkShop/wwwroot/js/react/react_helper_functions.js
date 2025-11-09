@@ -57,3 +57,5 @@ function calculatePassStrength(pwd) {
     var result = 0.5 + little + big + digits + special;
     return result
 }
+
+function followRedirect(url) { window.location.href = url }

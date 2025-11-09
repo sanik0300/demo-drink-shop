@@ -8,5 +8,6 @@ namespace DemoDrinkShop.Infrastructure.Identity
         public AppIdentityDbContext(DbContextOptions<AppIdentityDbContext> options) : base(options) { }
 
         public DbSet<UselessPassword> UselessPasswords { get; set; }
+        public DbSet<VerificationCode> VerificationCodes { get; set; }
     }
 }

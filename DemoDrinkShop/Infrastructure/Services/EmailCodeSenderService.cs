@@ -4,11 +4,11 @@ using DemoDrinkShop.Application.Interfaces;
 
 namespace DemoDrinkShop.Infrastructure.Services
 {
-    public class EmailCodeVerificationService : ICodeVerificationService, IDisposable
+    public class EmailCodeSenderService : ICodeSenderService, IDisposable
     {
         private readonly string ourEmail;
         private readonly SmtpClient smtpClient;
-        public EmailCodeVerificationService()
+        public EmailCodeSenderService()
         {
             string[] credentials = File.ReadAllLines("Credentials/email.txt");
             ourEmail = credentials[1];

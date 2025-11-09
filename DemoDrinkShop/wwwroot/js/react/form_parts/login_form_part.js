@@ -5,10 +5,7 @@ window.LoginFormPart = function LoginFormPart(props) {
         
     const [emailValid, setEmailValid] = React.useState(true);
     const [passStrength, setPassStrength] = React.useState(0);
-    
-    const passProgressStyles = {
-        visibility: (passStrength == 0? 'hidden' : undefined)
-    }
+
 
     function onEmailInputChanged(e) 
     {
@@ -45,7 +42,7 @@ window.LoginFormPart = function LoginFormPart(props) {
                              strengthCalculator={(props.showPassStrength? calculatePassStrength : undefined)}/>
                 {(props.showPassStrength?
                     <progress type="progress" min="0" max="4" value={Math.floor(passStrength).toString()}
-                            style={passProgressStyles}></progress>
+                              style={(passStrength == 0? {visibility: 'hidden'} : undefined)}></progress>
                     :
                     undefined
                 )}

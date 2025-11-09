@@ -18,19 +18,22 @@ namespace DemoDrinkShop.Presentation.Controllers
 
         private readonly UserManager<ExtendedIdentityUser> userManager;
         private readonly SignInManager<ExtendedIdentityUser> signInManager;
-        private readonly IPasswordHasher<ExtendedIdentityUser> passwordHasher;
-        private readonly IPasswordVocabularyService passwordService;
-        private readonly ICodeVerificationService codeService;
         private readonly IMemoryCache memoryCache;
+        
+        private readonly IPasswordVocabularyService passwordService;
+        private readonly ICodeSenderService codeService;
+        private readonly IVerificationCodeRepository codeRepository;
 
-        public AccountController(IServiceProvider serviceProvider, IMemoryCache memoryCache)
+
+        public AccountController(IServiceProvider serviceProvider, IMemoryCache memoryCache, IVerificationCodeRepository codeRepository)
         {
             userManager = serviceProvider.GetRequiredService<UserManager<ExtendedIdentityUser>>();
             signInManager = serviceProvider.GetRequiredService<SignInManager<ExtendedIdentityUser>>();
-            passwordHasher = serviceProvider.GetRequiredService<IPasswordHasher<ExtendedIdentityUser>>();
 
             passwordService = serviceProvider.GetRequiredService<IPasswordVocabularyService>();
-            codeService = serviceProvider.GetRequiredService<ICodeVerificationService>();
+            codeService = serviceProvider.GetRequiredService<ICodeSenderService>();
+
+            this.codeRepository = codeRepository;
             this.memoryCache = memoryCache;
         }
 
@@ -78,7 +81,8 @@ namespace DemoDrinkShop.Presentation.Controllers
                 ViewBag.Purpose = "login";
                 return View("Entry");
             }
-            if (passwordHasher.VerifyHashedPassword(user, user.PasswordHash, loginModel.Password) == PasswordVerificationResult.Failed)
+            bool thatPwd = await userManager.CheckPasswordAsync(user, loginModel.Password);
+            if (!thatPwd)
             {
                 ModelState.AddModelError("", "Wrong password");
                 ViewBag.Purpose = "login";
@@ -134,11 +138,9 @@ namespace DemoDrinkShop.Presentation.Controllers
                 Email = regModel.Email,
                 PhoneNumber = regModel.Phone,
                 VerifyByEmail = !regModel.VerifyByEmail.GetValueOrDefault(),
-                UserName = regModel.Name
+                UserName = regModel.Name ?? (regModel.Email!= null? regModel.Email.Split('@')[0] : regModel.Phone),
             };
-            registered.PasswordHash = passwordHasher.HashPassword(registered, regModel.Password);
-
-            await userManager.CreateAsync(registered);
+            var result = await userManager.CreateAsync(registered, regModel.Password);
 
             if (signInManager.IsSignedIn(HttpContext.User))
             {
@@ -176,11 +178,50 @@ namespace DemoDrinkShop.Presentation.Controllers
                 return StatusCode(StatusCodes.Status429TooManyRequests, $"Wait {secondsLeft} more seconds before resending code");
             }
 
-            string code = Random.Shared.Next(1000, 10_000).ToString();
-            await codeService.SendCode(emailTo, code);
+            int code = VerificationCode.GenerateValue();
+            await codeService.SendCode(emailTo, code.ToString());
+            Debug.WriteLine($"Code is {code}");
 
             memoryCache.Set(cacheKey, DateTime.UtcNow, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromSeconds(30)));
+
+            VerificationCode codeEntity = new VerificationCode() { Email = emailTo, Value = code, ExpiresAt = DateTime.UtcNow.AddMinutes(15) };
+            
+            if(await codeRepository.GetByEmail(emailTo) != null)
+            {
+                await codeRepository.Save(codeEntity);
+            }
+            else {
+                await codeRepository.Add(codeEntity);
+            }
+
             return Ok();
+        }
+
+        [HttpPut]
+        [AllowAnonymous]
+        public async Task<IActionResult> VerifyPasswordChange([FromForm] PasswordChangeViewModel viewModel)
+        {
+            VerificationCode? codeEntity = await codeRepository.GetByEmail(viewModel.Email);
+
+            if(codeEntity == null)
+            {
+                return NotFound("Password code for this email not found");
+            }
+            if(viewModel.Code != codeEntity.Value)
+            {
+                return Unauthorized("Wrong code value");
+            }
+            if(codeEntity.IsExpired)
+            {
+                return Unauthorized("This code is expired already");
+            }
+
+            ExtendedIdentityUser me = await userManager.FindByEmailAsync(viewModel.Email);
+
+            string token = await userManager.GeneratePasswordResetTokenAsync(me);
+            await userManager.ResetPasswordAsync(me, token, viewModel.NewPassword);
+                        
+            return Redirect("/");
         }
     }
 }

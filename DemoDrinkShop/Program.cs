@@ -32,7 +32,7 @@ namespace DemoDrinkShop
 			builder.Services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
 
 			builder.Services.AddSingleton<IImageStorageService, FirebaseImagesService>();
-			builder.Services.AddSingleton<ICodeVerificationService, EmailCodeVerificationService>();
+			builder.Services.AddSingleton<ICodeSenderService, EmailCodeSenderService>();
 
 			builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 			builder.Services.AddTransient<IOrderRepository, EFOrderRepository>();
@@ -40,9 +40,17 @@ namespace DemoDrinkShop
 			{
 				options.UseSqlServer(configuration["Data:DemoDrinkShopIdentity:ConnectionString"]);
 			});
-			builder.Services.AddIdentity<ExtendedIdentityUser, IdentityRole>()
+			builder.Services.AddIdentity<ExtendedIdentityUser, IdentityRole>(options =>
+			{
+				options.Password.RequiredLength = 8;
+				options.Password.RequireDigit = false;
+				options.Password.RequireLowercase = false;
+				options.Password.RequireUppercase = false;
+				options.Password.RequireNonAlphanumeric = false;
+			})
 							.AddEntityFrameworkStores<AppIdentityDbContext>().AddDefaultTokenProviders();
 			builder.Services.AddTransient<IPasswordVocabularyService, PasswordVocabularyService>();
+			builder.Services.AddTransient<IVerificationCodeRepository, EFVerificationCodeRepository>();
 
 			builder.Services.AddMvc(options =>
 			{
@@ -123,7 +131,7 @@ namespace DemoDrinkShop
 			app.Lifetime.ApplicationStopping.Register(() =>
 			{
 				(app.Services.GetService<IImageStorageService>() as FirebaseImagesService)?.Dispose();
-				(app.Services.GetService<ICodeVerificationService>() as EmailCodeVerificationService)?.Dispose();
+				(app.Services.GetService<ICodeSenderService>() as EmailCodeSenderService)?.Dispose();
 			});
 
 			SeedData.EnsurePopulated(app);
