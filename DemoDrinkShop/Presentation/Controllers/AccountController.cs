@@ -23,9 +23,10 @@ namespace DemoDrinkShop.Presentation.Controllers
         private readonly IPasswordVocabularyService passwordService;
         private readonly ICodeSenderService codeService;
         private readonly IVerificationCodeRepository codeRepository;
+        private readonly IPasswordHistoryRepository historyRepository;
 
-
-        public AccountController(IServiceProvider serviceProvider, IMemoryCache memoryCache, IVerificationCodeRepository codeRepository)
+        public AccountController(IServiceProvider serviceProvider, IMemoryCache memoryCache, 
+                                 IVerificationCodeRepository codeRepository, IPasswordHistoryRepository historyRepository)
         {
             userManager = serviceProvider.GetRequiredService<UserManager<ExtendedIdentityUser>>();
             signInManager = serviceProvider.GetRequiredService<SignInManager<ExtendedIdentityUser>>();
@@ -35,6 +36,7 @@ namespace DemoDrinkShop.Presentation.Controllers
 
             this.codeRepository = codeRepository;
             this.memoryCache = memoryCache;
+            this.historyRepository = historyRepository;
         }
 
         [HttpGet]
@@ -140,7 +142,15 @@ namespace DemoDrinkShop.Presentation.Controllers
                 VerifyByEmail = !regModel.VerifyByEmail.GetValueOrDefault(),
                 UserName = regModel.Name ?? (regModel.Email!= null? regModel.Email.Split('@')[0] : regModel.Phone),
             };
-            var result = await userManager.CreateAsync(registered, regModel.Password);
+            await userManager.CreateAsync(registered, regModel.Password);
+
+            PasswordHistoryEntry myFirstEntry = new PasswordHistoryEntry() 
+            { 
+                IterationId =0, 
+                UserId=registered.Id,
+                PasswordHash = passwordService.ComputeHash(regModel.Password),
+            };
+            await historyRepository.AddEntry(myFirstEntry);
 
             if (signInManager.IsSignedIn(HttpContext.User))
             {
@@ -217,6 +227,21 @@ namespace DemoDrinkShop.Presentation.Controllers
             }
 
             ExtendedIdentityUser me = await userManager.FindByEmailAsync(viewModel.Email);
+
+            string myHash = passwordService.ComputeHash(viewModel.NewPassword);
+            IEnumerable<PasswordHistoryEntry> myHistory = await historyRepository.GetForUser(me.Id);
+
+            if(myHistory.Any(p => p.PasswordHash==myHash))
+            {
+                return Unauthorized("You have already had this password before");
+            }
+            PasswordHistoryEntry updEntry = new PasswordHistoryEntry()
+            {
+                IterationId = myHistory.Count(),
+                UserId = me.Id,
+                PasswordHash = myHash
+            };
+            await historyRepository.AddEntry(updEntry);
 
             string token = await userManager.GeneratePasswordResetTokenAsync(me);
             await userManager.ResetPasswordAsync(me, token, viewModel.NewPassword);

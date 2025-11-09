@@ -51,6 +51,7 @@ namespace DemoDrinkShop
 							.AddEntityFrameworkStores<AppIdentityDbContext>().AddDefaultTokenProviders();
 			builder.Services.AddTransient<IPasswordVocabularyService, PasswordVocabularyService>();
 			builder.Services.AddTransient<IVerificationCodeRepository, EFVerificationCodeRepository>();
+			builder.Services.AddTransient<IPasswordHistoryRepository, EFPasswordHistoryRepository>();
 
 			builder.Services.AddMvc(options =>
 			{

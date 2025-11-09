@@ -16,11 +16,6 @@ namespace DemoDrinkShop.Infrastructure.Identity
                 {
                     user = new ExtendedIdentityUser() { UserName = "Admin", Email = "example@gmail.com", Address = "somewhere test" };
 
-                    /*IPasswordHasher<ExtendedIdentityUser> hasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher<ExtendedIdentityUser>>();
-                    string hash = hasher.HashPassword(user, adminPassword);
-
-                    user.PasswordHash = hash;*/
-
                     await userManager.CreateAsync(user, adminPassword);
                 }
             }

@@ -9,5 +9,7 @@ namespace DemoDrinkShop.Infrastructure.Identity
 
         public DbSet<UselessPassword> UselessPasswords { get; set; }
         public DbSet<VerificationCode> VerificationCodes { get; set; }
+
+        public DbSet<PasswordHistoryEntry> PasswordsHistory {  get; set; }
     }
 }
