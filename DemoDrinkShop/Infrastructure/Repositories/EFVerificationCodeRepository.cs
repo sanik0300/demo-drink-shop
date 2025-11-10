@@ -31,7 +31,7 @@ namespace DemoDrinkShop.Infrastructure.Identity
         }
         public async Task CleanExpired()
         {
-            IEnumerable<VerificationCode> codes = context.VerificationCodes.Where(c => c.IsExpired);
+            IEnumerable<VerificationCode> codes = (await context.VerificationCodes.ToListAsync()).Where(c => c.IsExpired);
             context.VerificationCodes.RemoveRange(codes);
             await context.SaveChangesAsync();
         }

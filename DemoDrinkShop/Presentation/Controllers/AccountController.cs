@@ -25,7 +25,9 @@ namespace DemoDrinkShop.Presentation.Controllers
         private readonly IVerificationCodeRepository codeRepository;
         private readonly IPasswordHistoryRepository historyRepository;
 
-        public AccountController(IServiceProvider serviceProvider, IMemoryCache memoryCache, 
+        private readonly byte recoveryCodeMinutes = 15;
+
+        public AccountController(IServiceProvider serviceProvider, IMemoryCache memoryCache, IConfiguration configuration,
                                  IVerificationCodeRepository codeRepository, IPasswordHistoryRepository historyRepository)
         {
             userManager = serviceProvider.GetRequiredService<UserManager<ExtendedIdentityUser>>();
@@ -37,6 +39,8 @@ namespace DemoDrinkShop.Presentation.Controllers
             this.codeRepository = codeRepository;
             this.memoryCache = memoryCache;
             this.historyRepository = historyRepository;
+
+            byte.TryParse(configuration["RecoveryCodeMinutes"], out this.recoveryCodeMinutes);
         }
 
         [HttpGet]
@@ -194,7 +198,9 @@ namespace DemoDrinkShop.Presentation.Controllers
 
             memoryCache.Set(cacheKey, DateTime.UtcNow, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromSeconds(30)));
 
-            VerificationCode codeEntity = new VerificationCode() { Email = emailTo, Value = code, ExpiresAt = DateTime.UtcNow.AddMinutes(15) };
+            VerificationCode codeEntity = new VerificationCode() {
+                Email = emailTo, Value = code, ExpiresAt = DateTime.UtcNow.AddMinutes(recoveryCodeMinutes) 
+            };
             
             if(await codeRepository.GetByEmail(emailTo) != null)
             {

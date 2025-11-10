@@ -52,6 +52,7 @@ namespace DemoDrinkShop
 			builder.Services.AddTransient<IPasswordVocabularyService, PasswordVocabularyService>();
 			builder.Services.AddTransient<IVerificationCodeRepository, EFVerificationCodeRepository>();
 			builder.Services.AddTransient<IPasswordHistoryRepository, EFPasswordHistoryRepository>();
+			builder.Services.AddHostedService<ExpiredRecoveryCodesCleanupService>();
 
 			builder.Services.AddMvc(options =>
 			{
