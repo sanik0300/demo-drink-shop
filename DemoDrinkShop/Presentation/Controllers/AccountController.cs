@@ -61,14 +61,13 @@ namespace DemoDrinkShop.Presentation.Controllers
         [HttpPost]
         [AllowAnonymous]
         [PhoneNumberResourceFilter]
-        [ModelErrorsSurfacingFilter]
+        //[ModelErrorsSurfacingFilter]
         public async Task<IActionResult> Login([FromForm] UserViewModel loginModel)
         {
             if (!ModelState.IsValid)
-            {
-                ModelState.AddModelError("", "Invalid email/phone or password too short");
-                ViewBag.Purpose = "login";
-                return View("Entry");
+            {           
+                //ViewBag.Purpose = "login";
+                return BadRequest("Invalid email/phone or password too short");
             }
 
             ExtendedIdentityUser? user = null;
@@ -76,23 +75,21 @@ namespace DemoDrinkShop.Presentation.Controllers
             {
                 user = await userManager.FindByEmailAsync(loginModel.Email);
             }
-            if (user == null)
+            if (user == null && !string.IsNullOrEmpty(loginModel.Phone))
             {
                 user = await userManager.Users.Where(u => u.PhoneNumber == loginModel.Phone).FirstOrDefaultAsync();
             }
 
             if (user == null)
             {
-                ModelState.AddModelError("", "Account not found");
-                ViewBag.Purpose = "login";
-                return View("Entry");
+                //ViewBag.Purpose = "login";
+                return NotFound("Account not found");
             }
             bool thatPwd = await userManager.CheckPasswordAsync(user, loginModel.Password);
             if (!thatPwd)
             {
-                ModelState.AddModelError("", "Wrong password");
-                ViewBag.Purpose = "login";
-                return View("Entry");
+                //ViewBag.Purpose = "login";
+                return NotFound("Wrong password");
             }
 
             await signInManager.SignOutAsync();
@@ -101,15 +98,14 @@ namespace DemoDrinkShop.Presentation.Controllers
                 return Redirect(loginModel?.ReturnUrl ?? "/Product/List");
             }
 
-            ModelState.AddModelError("", "Failed to sign in, try again");
-            ViewBag.Purpose = "login";
-            return View("Entry");
+            //ViewBag.Purpose = "login";
+            return Unauthorized("Failed to sign in, try again");
         }
 
         [HttpPost]
         [AllowAnonymous]
         [PhoneNumberResourceFilter]
-        [ModelErrorsSurfacingFilter]
+        //[ModelErrorsSurfacingFilter]
         public async Task<IActionResult> Register([FromForm] UserViewModel regModel)
         {
             IdentityUser? existingUsr;
@@ -118,8 +114,7 @@ namespace DemoDrinkShop.Presentation.Controllers
                 existingUsr = await userManager.FindByEmailAsync(regModel.Email);
                 if (existingUsr != null)
                 {
-                    ModelState.AddModelError("", "User with such email already exists");
-                    return View("Entry");
+                    return Conflict("User with such email already exists");
                 }
             }
             if (regModel.Phone != null)
@@ -127,15 +122,13 @@ namespace DemoDrinkShop.Presentation.Controllers
                 existingUsr = await userManager.Users.Where(u => u.PhoneNumber == regModel.Phone).FirstOrDefaultAsync();
                 if (existingUsr != null)
                 {
-                    ModelState.AddModelError("", "User with such phone number already exists");
-                    return View("Entry");
+                    return Conflict("User with such phone number already exists");
                 }
             }
 
             if(await passwordService.IsToReject(regModel.Password))
             {
-                ModelState.AddModelError("", "Password from a prohibited list");
-                return View("Entry");
+                return UnprocessableEntity("Password from a prohibited list");
             }
 
             ExtendedIdentityUser registered = new ExtendedIdentityUser()
@@ -227,9 +220,13 @@ namespace DemoDrinkShop.Presentation.Controllers
             {
                 return Unauthorized("Wrong code value");
             }
+            if(codeEntity.Used)
+            {
+                return UnprocessableEntity("This code is used already");
+            }
             if(codeEntity.IsExpired)
             {
-                return Unauthorized("This code is expired already");
+                return UnprocessableEntity("This code is expired already");
             }
 
             ExtendedIdentityUser me = await userManager.FindByEmailAsync(viewModel.Email);

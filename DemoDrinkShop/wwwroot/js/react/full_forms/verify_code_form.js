@@ -40,32 +40,7 @@ window.VerificationCodeForm = function VerificationCodeForm(props)
 
         var formData = new FormData();
         formData.append('emailTo', emailInput.current.value);
-
-        await fetch("SendVerificationCode", {
-            method: 'POST',
-            body: formData
-        })
-        .then(async (response) => {
-            if(response.ok) {
-                startBlockingButton();
-            }
-        })
-    }
-
-    async function onCodeSubmit() {
-        await fetch("VerifyPasswordChange", {
-            method: 'PUT',
-            body: new FormData(emailInput.current.parentElement)
-        })
-        .then(async (response) => {
-            if(response.ok) {
-                followRedirect(response.url)
-            }
-            else {
-                var txt = await response.text();
-                console.log(txt)
-            }
-        })        
+        await onAjaxSubmit('SendVerificationCode', 'POST', formData)
     }
 
     React.useEffect(() => {
@@ -103,7 +78,8 @@ window.VerificationCodeForm = function VerificationCodeForm(props)
                           style={(passStrength == 0? {visibility: 'hidden'} : undefined)}></progress>
 
                 <button type="button" disabled={!codeOk || passStrength <= 1}
-                        onClick={onCodeSubmit}>Submit</button>
+                        onClick={() => onAjaxSubmit('VerifyPasswordChange', 'PUT', new FormData(emailInput.current.parentElement))}
+                        >Submit</button>
             </form>
         </div>
     )

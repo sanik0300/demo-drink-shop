@@ -58,4 +58,25 @@ function calculatePassStrength(pwd) {
     return result
 }
 
-function followRedirect(url) { window.location.href = url }
+async function onAjaxSubmit(action, methodName, formData) 
+{
+        var p = document.getElementById('temp-message');
+        p.innerHTML = '';
+
+        await fetch(action, {
+            method: methodName,
+            body: formData
+        })
+        .then(async (response) => 
+        {
+            if(response.ok && !response.redirected) { return }
+
+            var txt = response.ok? '✅ Successful action, wait for redirect' 
+                                    : '❌ ' + (await response.text());
+            p.innerHTML = txt;
+
+            if(!response.ok) { return }
+
+            window.location.href = response.url
+        })
+}

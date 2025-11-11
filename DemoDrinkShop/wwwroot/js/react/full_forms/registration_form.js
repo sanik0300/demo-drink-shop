@@ -55,7 +55,8 @@ window.RegistrationForm = function RegistrationForm() {
     }
 
     return(
-        <form method="post" action="Register">
+        <form onSubmit={(e) => { e.preventDefault();
+                                 onAjaxSubmit("Register", 'POST', new FormData(e.target))}}>
             <LoginFormPart showPassStrength={true} 
                            totalState={loginState} totalStateSetter={loginStateSetter}/>
             <div id="verify-options">
@@ -83,8 +84,9 @@ window.RegistrationForm = function RegistrationForm() {
                 <LimitedTextBox filterFunc={validateExceptSpecialCharacters} propertyName="address"/>
             </div>
 
-            <input type="submit" value="register" 
-                   disabled={(!loginState.emailOk && !loginState.phoneOk) || !loginState.passwordOk}/>
+            <button type="submit"
+                    disabled={(!loginState.emailOk && !loginState.phoneOk) || !loginState.passwordOk}
+                    >Register</button>
         </form>
     )
 }
