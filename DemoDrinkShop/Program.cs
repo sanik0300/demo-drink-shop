@@ -1,10 +1,10 @@
 using DemoDrinkShop.Application.Interfaces;
 using DemoDrinkShop.Domain;
 using DemoDrinkShop.Domain.Entities;
-using DemoDrinkShop.Infrastructure;
 using DemoDrinkShop.Infrastructure.Identity;
 using DemoDrinkShop.Infrastructure.Persistence;
 using DemoDrinkShop.Infrastructure.Repositories;
+using DemoDrinkShop.Infrastructure.Services;
 using DemoDrinkShop.Presentation.ModelBinders;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -31,10 +31,8 @@ namespace DemoDrinkShop
 
 			builder.Services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
 
-			string? OAuthPath = configuration["Firebase:OauthKeyPath"],
-				    bucketName = configuration["Firebase:BucketName"];
-			IImageStorageService serviceForImages = new FirebaseImagesService(bucketName, OAuthPath);
-			builder.Services.AddSingleton(serviceForImages);
+			builder.Services.AddSingleton<IImageStorageService, FirebaseImagesService>();
+			builder.Services.AddSingleton<ICodeSenderService, EmailCodeSenderService>();
 
 			builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 			builder.Services.AddTransient<IOrderRepository, EFOrderRepository>();
@@ -42,15 +40,31 @@ namespace DemoDrinkShop
 			{
 				options.UseSqlServer(configuration["Data:DemoDrinkShopIdentity:ConnectionString"]);
 			});
-			builder.Services.AddIdentity<ExtendedIdentityUser, IdentityRole>()
+			builder.Services.AddIdentity<ExtendedIdentityUser, IdentityRole>(options =>
+			{
+				options.Password.RequiredLength = 8;
+				options.Password.RequireDigit = false;
+				options.Password.RequireLowercase = false;
+				options.Password.RequireUppercase = false;
+				options.Password.RequireNonAlphanumeric = false;
+			})
 							.AddEntityFrameworkStores<AppIdentityDbContext>().AddDefaultTokenProviders();
+			builder.Services.AddTransient<IPasswordVocabularyService, PasswordVocabularyService>();
+			builder.Services.AddTransient<IVerificationCodeRepository, EFVerificationCodeRepository>();
+			builder.Services.AddTransient<IPasswordHistoryRepository, EFPasswordHistoryRepository>();
+			builder.Services.AddHostedService<ExpiredRecoveryCodesCleanupService>();
 
-
-			builder.Services.AddMvc(options => 
+			builder.Services.AddMvc(options =>
 			{
 				options.EnableEndpointRouting = false;
 				options.ModelBinderProviders.Insert(0, new CustomDecimalModelBinderProvider());
-			});
+			})
+			  .AddRazorOptions(options => 
+			{
+                options.ViewLocationFormats.Clear(); 
+                options.ViewLocationFormats.Add("/Presentation/Views/{1}/{0}.cshtml");
+                options.ViewLocationFormats.Add("/Presentation/Views/Shared/{0}.cshtml");
+            });
 			builder.Services.AddMemoryCache();
 			builder.Services.AddSession();
 			var app = builder.Build();
@@ -110,17 +124,21 @@ namespace DemoDrinkShop
 								defaults: new { controller = "Account", action = "Entry", purpose = "login" });
                 routes.MapRoute(name: null, template: "Account/Register", 
 								defaults: new { controller = "Account", action = "Entry", purpose = "register" });
+                routes.MapRoute(name: null, template: "Account/ChangePassword",
+								defaults: new { controller = "Account", action = "Entry", purpose = "code" });
 
                 routes.MapRoute(name: null, template: "{controller}/{action}/{id?}");
 			});
 
 			app.Lifetime.ApplicationStopping.Register(() =>
 			{
-				(serviceForImages as FirebaseImagesService)?.Dispose();
+				(app.Services.GetService<IImageStorageService>() as FirebaseImagesService)?.Dispose();
+				(app.Services.GetService<ICodeSenderService>() as EmailCodeSenderService)?.Dispose();
 			});
 
 			SeedData.EnsurePopulated(app);
 			IdentitySeedData.EnsurePopulated(app);
+			PasswordVocabularyService.EnsurePopulated(app);
 
 			app.Run();
         }

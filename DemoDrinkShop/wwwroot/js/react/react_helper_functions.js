@@ -10,7 +10,7 @@ function isLetter(c) {
     return c.toLowerCase() != c.toUpperCase();
 }
 
-async function fetchJsonText(filePath) {
+async function fetchTextData(filePath) {
 
     const response = await fetch(filePath);
     if(response.ok) {
@@ -27,4 +27,56 @@ function unicodeToEmoji(unicodeString) {
     .split(' ')
     .map(u => String.fromCodePoint(parseInt(u.replace('U+', ''), 16)))
     .join('');
+}
+
+function isSpecialCharacter(c) {
+    return (c >= '!' && c <= '/') || (c >= ':' && c <= '@') || (c >= '[' && c <= '`') || (c >= '{' && c <= '~');
+}
+
+function calculatePassStrength(pwd) {
+
+    var little=false, big=false, digits=false, special=false;
+    for (let i = 0; i < pwd.length; i++) 
+    {
+        var c = pwd[i];
+        if(isDigit(c)) {
+            digits = true; 
+        }
+        else if (isSpecialCharacter(c)) {
+            special = true;
+        }
+        else if(c == c.toUpperCase()) {
+            big = true;
+        }
+        else {
+            little = true;
+        }
+
+        if(little && big && digits && special) { break; }
+    }
+    var result = 0.5 + little + big + digits + special;
+    return result
+}
+
+async function onAjaxSubmit(action, methodName, formData) 
+{
+        var p = document.getElementById('temp-message');
+        p.innerHTML = '';
+
+        await fetch(action, {
+            method: methodName,
+            body: formData
+        })
+        .then(async (response) => 
+        {
+            if(response.ok && !response.redirected) { return }
+
+            var txt = response.ok? '✅ Successful action, wait for redirect' 
+                                    : '❌ ' + (await response.text());
+            p.innerHTML = txt;
+
+            if(!response.ok) { return }
+
+            window.location.href = response.url
+        })
 }

@@ -16,8 +16,15 @@
     <title>DemoDrinkShop</title>
 </head>
 <body>
-    <div role="navigation" class="topbar">
-        <a href="#" style="font-family: 'Kiak'">DEMO DRINK SHOP</a>
+    <nav class="topbar">
+        <div class="top-interactive">
+            <div class="cart-size-box"></div>
+            <a id="main-title" href="#" style="font-family: 'Kiak'">DEMO DRINK SHOP</a>
+            <div class="cart-size-box">
+                @await Component.InvokeAsync("LoginState")
+            </div>
+        </div>
+       
        <div class="top-interactive">
             <div class="cart-size-box"></div>
             <div id="categories">
@@ -25,7 +32,7 @@
             </div>
             @await Component.InvokeAsync("CartSummary")
         </div>
-    </div>
+    </nav>
 
     <div>
         @RenderBody()

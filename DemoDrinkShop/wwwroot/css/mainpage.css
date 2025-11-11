@@ -5,7 +5,7 @@
     box-shadow: 0 5px 1px #64829B;
 }
 
-    .topbar > a {
+    #main-title {
         font-size: 28pt;
         color: #686C33;
         text-shadow: 1px 2px 3px #F6F4F5;

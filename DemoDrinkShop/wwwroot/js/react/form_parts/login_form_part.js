@@ -5,10 +5,7 @@ window.LoginFormPart = function LoginFormPart(props) {
         
     const [emailValid, setEmailValid] = React.useState(true);
     const [passStrength, setPassStrength] = React.useState(0);
-    
-    const passProgressStyles = {
-        visibility: (passStrength == 0? 'hidden' : undefined)
-    }
+
 
     function onEmailInputChanged(e) 
     {
@@ -19,35 +16,6 @@ window.LoginFormPart = function LoginFormPart(props) {
         props.totalStateSetter(props.totalState)
     }
 
-        
-    function isSpecialCharacter(c) {
-        return (c >= '!' && c <= '/') || (c >= ':' && c <= '@') || (c >= '[' && c <= '`') || (c >= '{' && c <= '~');
-    }
-
-    function calculatePassStrength(pwd) {
-
-        var little=false, big=false, digits=false, special=false;
-        for (let i = 0; i < pwd.length; i++) 
-        {
-            var c = pwd[i];
-            if(isDigit(c)) {
-                digits = true; 
-            }
-            else if (isSpecialCharacter(c)) {
-                special = true;
-            }
-            else if(c == c.toUpperCase()) {
-                big = true;
-            }
-            else {
-                little = true;
-            }
-
-            if(little && big && digits && special) { break; }
-        }
-        var result = 0 + little + big + digits + special;
-        return result
-    }
 
     function onPassStrengthChanged(strength) 
     {
@@ -73,8 +41,8 @@ window.LoginFormPart = function LoginFormPart(props) {
                 <PasswordBox passwordStrengthCallback={onPassStrengthChanged}
                              strengthCalculator={(props.showPassStrength? calculatePassStrength : undefined)}/>
                 {(props.showPassStrength?
-                    <progress type="progress" min="0" max="4" value={passStrength.toString()}
-                            style={passProgressStyles}></progress>
+                    <progress type="progress" min="0" max="4" value={Math.floor(passStrength).toString()}
+                              style={(passStrength == 0? {visibility: 'hidden'} : undefined)}></progress>
                     :
                     undefined
                 )}

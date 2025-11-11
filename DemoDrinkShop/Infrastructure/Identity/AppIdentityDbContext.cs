@@ -6,5 +6,10 @@ namespace DemoDrinkShop.Infrastructure.Identity
     public class AppIdentityDbContext : IdentityDbContext<ExtendedIdentityUser>
     {
         public AppIdentityDbContext(DbContextOptions<AppIdentityDbContext> options) : base(options) { }
+
+        public DbSet<UselessPassword> UselessPasswords { get; set; }
+        public DbSet<VerificationCode> VerificationCodes { get; set; }
+
+        public DbSet<PasswordHistoryEntry> PasswordsHistory {  get; set; }
     }
 }

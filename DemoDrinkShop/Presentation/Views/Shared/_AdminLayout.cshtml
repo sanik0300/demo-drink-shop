@@ -1,7 +1,6 @@
 ﻿<!DOCTYPE html>
 @{
     bool editPage = ViewBag.Title != null && ((string)ViewBag.Title).StartsWith("Edit");
-
     string mainDivClass = editPage ? "card-shadow" : "card-shadow form-base";
 }
 <html>
@@ -35,21 +34,15 @@
             {
                 <div class="myformheader"><h4>@ViewBag.Title</h4></div>
             }
-            <div>
-                <a asp-action="Logout" asp-controller="Account">
-                    @if (editPage) {
-                        <h4 class="serious-text" style="margin: 0; padding-left: 15px;">Log Out</h4>
-                    }
-                    else {
-                        <h4 class="serious-text">Log Out</h4>
-                    }
+            <div style="display: ruby-text">
+                <a asp-action="Logout" asp-controller="Account" style="margin: 0">
+                    <h4 class="serious-text">Log Out</h4>
                 </a>
+                @await Component.InvokeAsync("LoginState")
             </div>
-
-            @if (TempData["message"] != null)
-            {
-                <div class="alert alert-success">@TempData["message"]</div>
-            }
+            
+            <div id="temp-message" class="alert alert-success">@TempData["message"]</div>
+           
             @RenderBody()
         </div>
     </body>

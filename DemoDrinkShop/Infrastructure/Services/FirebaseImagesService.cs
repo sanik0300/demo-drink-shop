@@ -3,29 +3,30 @@ using Google;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Storage.v1.Data;
 using Google.Cloud.Storage.V1;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 
-namespace DemoDrinkShop.Infrastructure
+namespace DemoDrinkShop.Infrastructure.Services
 {
     public class FirebaseImagesService : IImageStorageService, IDisposable
     {
         private readonly string bucketName;
         private readonly StorageClient _storageClient;
 
-        public FirebaseImagesService(string bucketName, string firebaseAuthPath)
+        public FirebaseImagesService(IConfiguration configuration)
         {
-            this.bucketName = bucketName;
+            this.bucketName = configuration["Firebase:BucketName"];
             GoogleCredential serviceAccCredential;
 
-            using (FileStream fs = new FileStream(firebaseAuthPath, FileMode.Open, FileAccess.Read))
+            using (FileStream fs = new FileStream(configuration["Firebase:OauthKeyPath"], FileMode.Open, FileAccess.Read))
             {
                 serviceAccCredential = GoogleCredential.FromStream(fs);
             }
 
             _storageClient = StorageClient.Create(serviceAccCredential);
         }
-        public string GetEndURL(string name) 
+        public string GetEndURL(string name)
             => $"https://firebasestorage.googleapis.com/v0/b/{bucketName}/o/{name}?alt=media";
         public async Task DeleteImageFromDrive(string imageName)
         {
@@ -37,20 +38,22 @@ namespace DemoDrinkShop.Infrastructure
             Google.Apis.Storage.v1.Data.Object meta = null;
 
             meta = await _storageClient.UploadObjectAsync(bucketName, fileName, contentType, str);
-            
+
             await _storageClient.UpdateObjectAsync(meta);
             return meta.Name;
         }
         public async Task<bool> ImageExists(string imageName)
         {
             Google.Apis.Storage.v1.Data.Object? meta = null;
-            try {
+            try
+            {
                 meta = await _storageClient.GetObjectAsync(bucketName, imageName);
             }
-            catch (GoogleApiException e)  { 
+            catch (GoogleApiException e)
+            {
                 return false;
             }
-            return meta!= null;
+            return meta != null;
         }
 
         public void Dispose()

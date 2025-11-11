@@ -16,12 +16,14 @@ window.LoginForm = function LoginForm() {
     }
 
     return(
-        <form method="post" action="Login">
+        <form onSubmit={(e) => { e.preventDefault();
+                                 onAjaxSubmit("Login", 'POST', new FormData(e.target))}}>
             <LoginFormPart showPassStrength={false}
                            totalState={loginState} totalStateSetter={loginStateSetter}/>
 
-            <input type="submit" value="login" 
-                   disabled={(!loginState.emailOk && !loginState.phoneOk) || !loginState.passwordOk}/>
+            <button type="submit"
+                    disabled={(!loginState.emailOk && !loginState.phoneOk) || !loginState.passwordOk}
+                    >Login</button>
         </form>
     )
 }
