@@ -4,6 +4,6 @@
     {
         string ComputeHash(string text);
 
-        Task<bool> IsToReject(string pass);
+        Task<bool> Contains(string hash);
     }
 }

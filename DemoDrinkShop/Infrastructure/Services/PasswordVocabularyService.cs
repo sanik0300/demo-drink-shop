@@ -46,10 +46,9 @@ namespace DemoDrinkShop.Infrastructure.Services
             return hex;
         }
 
-        public async Task<bool> IsToReject(string pass)
+        public async Task<bool> Contains(string hash)
         {
-            string hashedStr = ComputeHash(pass);
-            return await identityDbContext.UselessPasswords.AnyAsync(p => p.HashedValue == hashedStr);
+            return await identityDbContext.UselessPasswords.AnyAsync(p => p.HashedValue == hash);
         }
     }
 }

@@ -126,7 +126,7 @@ namespace DemoDrinkShop.Presentation.Controllers
                 }
             }
 
-            if(await passwordService.IsToReject(regModel.Password))
+            if(await passwordService.Contains(passwordService.ComputeHash(regModel.Password)))
             {
                 return UnprocessableEntity("Password from a prohibited list");
             }
@@ -186,8 +186,8 @@ namespace DemoDrinkShop.Presentation.Controllers
             }
 
             int code = VerificationCode.GenerateValue();
-            await codeService.SendCode(emailTo, code.ToString());
-            Debug.WriteLine($"Code is {code}");
+            //await codeService.SendCode(emailTo, code.ToString());
+            Debug.WriteLine($"email code is {code}");
 
             memoryCache.Set(cacheKey, DateTime.UtcNow, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromSeconds(30)));
 
@@ -232,12 +232,18 @@ namespace DemoDrinkShop.Presentation.Controllers
             ExtendedIdentityUser me = await userManager.FindByEmailAsync(viewModel.Email);
 
             string myHash = passwordService.ComputeHash(viewModel.NewPassword);
+            if(await passwordService.Contains(myHash))
+            {
+                return UnprocessableEntity("Password from a prohibited list");
+            }
+
             IEnumerable<PasswordHistoryEntry> myHistory = await historyRepository.GetForUser(me.Id);
 
             if(myHistory.Any(p => p.PasswordHash==myHash))
             {
                 return Unauthorized("You have already had this password before");
             }
+            
             PasswordHistoryEntry updEntry = new PasswordHistoryEntry()
             {
                 IterationId = myHistory.Count(),
@@ -248,7 +254,10 @@ namespace DemoDrinkShop.Presentation.Controllers
 
             string token = await userManager.GeneratePasswordResetTokenAsync(me);
             await userManager.ResetPasswordAsync(me, token, viewModel.NewPassword);
-                        
+
+            codeEntity.Used = true;
+            await codeRepository.Save(codeEntity);
+            
             return Redirect("/");
         }
     }

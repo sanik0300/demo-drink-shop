@@ -10,7 +10,7 @@ namespace DemoDrinkShop.Presentation.ViewModels
         public string? Phone { get; set; }
 
         [Required]
-        [MinLength(6)]
+        [MinLength(8)]
         [UIHint("password")]
         public string? Password { get; set; }
 
