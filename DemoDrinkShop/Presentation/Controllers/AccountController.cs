@@ -25,7 +25,7 @@ namespace DemoDrinkShop.Presentation.Controllers
         private readonly IVerificationCodeRepository codeRepository;
         private readonly IPasswordHistoryRepository historyRepository;
 
-        private readonly byte recoveryCodeMinutes = 15;
+        private readonly byte recoveryCodeMinutes;
 
         public AccountController(IServiceProvider serviceProvider, IMemoryCache memoryCache, IConfiguration configuration,
                                  IVerificationCodeRepository codeRepository, IPasswordHistoryRepository historyRepository)
@@ -40,7 +40,10 @@ namespace DemoDrinkShop.Presentation.Controllers
             this.memoryCache = memoryCache;
             this.historyRepository = historyRepository;
 
-            byte.TryParse(configuration["RecoveryCodeMinutes"], out this.recoveryCodeMinutes);
+            if (!byte.TryParse(configuration["RecoveryCodeMinutes"], out this.recoveryCodeMinutes))
+            {
+                recoveryCodeMinutes = 15;
+            }
         }
 
         [HttpGet]
@@ -61,12 +64,10 @@ namespace DemoDrinkShop.Presentation.Controllers
         [HttpPost]
         [AllowAnonymous]
         [PhoneNumberResourceFilter]
-        //[ModelErrorsSurfacingFilter]
         public async Task<IActionResult> Login([FromForm] UserViewModel loginModel)
         {
             if (!ModelState.IsValid)
-            {           
-                //ViewBag.Purpose = "login";
+            {
                 return BadRequest("Invalid email/phone or password too short");
             }
 
@@ -82,13 +83,11 @@ namespace DemoDrinkShop.Presentation.Controllers
 
             if (user == null)
             {
-                //ViewBag.Purpose = "login";
                 return NotFound("Account not found");
             }
             bool thatPwd = await userManager.CheckPasswordAsync(user, loginModel.Password);
             if (!thatPwd)
             {
-                //ViewBag.Purpose = "login";
                 return NotFound("Wrong password");
             }
 
@@ -98,7 +97,6 @@ namespace DemoDrinkShop.Presentation.Controllers
                 return Redirect(loginModel?.ReturnUrl ?? "/Product/List");
             }
 
-            //ViewBag.Purpose = "login";
             return Unauthorized("Failed to sign in, try again");
         }
 
@@ -180,13 +178,18 @@ namespace DemoDrinkShop.Presentation.Controllers
             string cacheKey = $"code_{emailTo}";
             if(memoryCache.TryGetValue(cacheKey, out var cache))
             {
-                int secondsLeft = 30 - (DateTime.UtcNow - (DateTime)cache).Seconds;
+                int secondsLeft = 30 - (DateTime.UtcNow - (DateTime)cache!).Seconds;
 
                 return StatusCode(StatusCodes.Status429TooManyRequests, $"Wait {secondsLeft} more seconds before resending code");
             }
 
+            if ((await userManager.FindByEmailAsync(emailTo)) == null)
+            {
+                return NotFound("No account found with this email");
+            }
+
             int code = VerificationCode.GenerateValue();
-            //await codeService.SendCode(emailTo, code.ToString());
+            await codeService.SendCode(emailTo, code.ToString());
             Debug.WriteLine($"email code is {code}");
 
             memoryCache.Set(cacheKey, DateTime.UtcNow, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromSeconds(30)));
@@ -209,7 +212,7 @@ namespace DemoDrinkShop.Presentation.Controllers
         [HttpPut]
         [AllowAnonymous]
         public async Task<IActionResult> VerifyPasswordChange([FromForm] PasswordChangeViewModel viewModel)
-        {
+        {            
             VerificationCode? codeEntity = await codeRepository.GetByEmail(viewModel.Email);
 
             if(codeEntity == null)
@@ -229,7 +232,11 @@ namespace DemoDrinkShop.Presentation.Controllers
                 return UnprocessableEntity("This code is expired already");
             }
 
-            ExtendedIdentityUser me = await userManager.FindByEmailAsync(viewModel.Email);
+            ExtendedIdentityUser? me = await userManager.FindByEmailAsync(viewModel.Email);
+            if (me == null) // this check needed here because what if someone deletes their account within 15 mins of code availability
+            {
+                return NotFound("No account found with this email");
+            }
 
             string myHash = passwordService.ComputeHash(viewModel.NewPassword);
             if(await passwordService.Contains(myHash))

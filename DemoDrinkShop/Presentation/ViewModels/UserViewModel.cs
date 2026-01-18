@@ -12,7 +12,7 @@ namespace DemoDrinkShop.Presentation.ViewModels
         [Required]
         [MinLength(8)]
         [UIHint("password")]
-        public string? Password { get; set; }
+        public string Password { get; set; } = string.Empty;
 
         public bool? VerifyByEmail { get; set; }
         public string? Name { get; set; }
